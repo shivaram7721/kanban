@@ -1,0 +1,26 @@
+.glassButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 28px;
+  border: none;
+  text-decoration: none;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  cursor: pointer;
+  width: 22rem;
+}
+
+.glassButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+body {
+  background-image: url("https://images.pexels.com/photos/326311/pexels-photo-326311.jpeg?auto=compress&cs=tinysrgb&w=1600");
+}
