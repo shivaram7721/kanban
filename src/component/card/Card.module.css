@@ -1,0 +1,63 @@
+.cardContainer {
+    width: 20vw;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.4rem 0 1.4rem;
+}
+
+.cardTitle {
+    /* color: white; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.dotsIcon {
+    padding: 5px;
+}
+
+.dotsIcon:hover {
+    background-color: rgb(189, 184, 184);
+}
+
+.cardBtn {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 15px;
+    padding: 0 5px 0 5px;
+}
+
+.cardBtn:hover {
+    background-color: rgb(189, 184, 184);
+}
+
+.addIcon {
+    color: rgb(83, 83, 83);
+}
+
+.addBtn {
+    color: rgb(83, 83, 83);
+}
+
+.addCardBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.4rem 0 1.4rem;
+    border-radius: 15px;
+    background-color: rgb(194, 189, 189, .3);
+    cursor: pointer;
+}
+
+.templateBtn {
+    padding: 5px;
+}
+
+.templateBtn:hover {
+    background-color: rgb(189, 184, 184);
+}
