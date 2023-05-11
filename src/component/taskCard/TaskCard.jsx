@@ -1,7 +1,7 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
 
-export default function TaskCard() {
+export default function TaskCard({ taskTitle }) {
   return (
     <Paper
       elevation={1}
@@ -14,7 +14,7 @@ export default function TaskCard() {
         "&:hover": { bgcolor: "#f1f2f4" },
       }}
     >
-      Do something
+      {taskTitle}
     </Paper>
   );
 }
