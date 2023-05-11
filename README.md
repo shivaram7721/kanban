@@ -1,3 +1,5 @@
+Datastructure =>
+
 dashboard = [
   {
     id: "123",
@@ -28,3 +30,11 @@ dashboard = [
     ],
   },
 ];
+
+
+Libraries => 
+  1. State management : Recoil,
+  2. Drag and drop : react-beautiful-dnd,
+  3. UI Library : Material UI
+
+Deployment : Deployment will be done on open platforms like render.com or Vercel.com
