@@ -1,18 +1,31 @@
+
 import './App.css'
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Nav from './nav/Nav';
 
-function App() {
+import { useState, useRef } from "react";
+import "./App.css";
+import AddListButton from "./component/button/addListButton/AddListButton";
+import List from "./component/list/list";
+import { Card } from "./component/card/Card";
+import Description from "./component/description/Description";
 
-console.log(DragDropContext)
-console.log(Droppable)
+
+function App() {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
 
-      {/* <h1>Kanban board</h1> */}
-      <Nav/>
+
+ 
+
+      <AddListButton onClick={() => setOpen(true)} />
+      <Card />
+      <Description />
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
