@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./AddListButton.module.css";
 import AddIcon from "@mui/icons-material/Add";
 
