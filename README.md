@@ -35,3 +35,9 @@ Libraries =>
   3. UI Library : Material UI
 
 Deployment : Deployment will be done on open platforms like render.com or Vercel.com
+
+collaborators =>
+  1. Shivaram Dusa
+  2. Subhashree Sahoo
+  3. Shubham Sharma
+  4. Sandesh Ghadage
