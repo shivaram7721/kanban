@@ -3,7 +3,7 @@ Datastructure =>
 dashboard = [
   {
     id: "123",
-    status: "completed",
+    title: "completed",
     list: [
       {
         id: "123",
