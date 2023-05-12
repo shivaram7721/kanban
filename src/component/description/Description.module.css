@@ -1,0 +1,17 @@
+.DialogContent{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.container2 {
+    margin: 2rem 2.7rem;
+}
+.btn1 {
+    display: flex;
+    gap: 10px;
+    font-size: 1.2rem;
+    height: 2rem;
+    align-items: center;
+}
+
+

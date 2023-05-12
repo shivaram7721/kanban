@@ -9,12 +9,12 @@ import { CardInput } from "../cardInput/CardInput";
 import { CardList } from "../cardList/CardList";
 import { useRecoilState } from "recoil";
 import { addCards } from "../../atom/Atom";
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext} from 'react-beautiful-dnd';
 
 
 export function Card() {
-
-    const [input, setInput] = useState('add Title');
+  const [input, setInput] = useState("add Title");
+    // const [input, setInput] = useState('add Title');
     const [show, setShow] = useState(true);
 
     const [cards, setcards] = useRecoilState(addCards)
@@ -53,8 +53,10 @@ export function Card() {
     <div className={styles.cardContainer}>
       <DragDropContext onDragEnd={handleDrag}>
       <div className={styles.titleContainer}>
-        <p className={styles.cardTitle} onChange={handleTitle} >{input}</p>
-        <HiOutlineDotsHorizontal className={styles.dotsIcon}/>
+        <p className={styles.cardTitle} onChange={handleTitle}>
+          {input}
+        </p>
+        <HiOutlineDotsHorizontal className={styles.dotsIcon} />
       </div>
       
       <div>

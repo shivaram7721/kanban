@@ -1,7 +1,7 @@
 import styles from "./CardInput.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useState, useRef } from "react";
+import { useState} from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useRecoilState } from "recoil";
