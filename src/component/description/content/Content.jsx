@@ -18,7 +18,7 @@ export default function Content() {
     <div>
       <span className={style.container3}>
         <SubjectIcon sx={{ fontSize: "1.8rem" }} />
-        <p className={style.para2} style={{ margin: "2px 0 10px 10px" }}>
+        <p className={style.para2} style={{ margin: "2px 0 10px 1.4rem" }}>
           Description
         </p>
       </span>
@@ -30,7 +30,7 @@ export default function Content() {
             width: "75%",
             display: "flex",
             justifyContent: "flex-start",
-            marginLeft: "2.5rem",
+            margin: "0 0 1rem 3rem",
           }}
         >
           Add a more detailed description....
@@ -56,7 +56,14 @@ export default function Content() {
           </span>
         </>
       )}
-      {showContent ? <div dangerouslySetInnerHTML={{ __html: content }} /> : ""}
+      {showContent ? (
+        <div
+          style={{ paddingLeft: "3rem" }}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

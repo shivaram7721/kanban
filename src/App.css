@@ -1,8 +1,4 @@
-button {
-  border: none;
-  border-radius: 10px;
-  background-color: var(--ds-background-neutral, #091e420a);
-}
-button:hover {
-  background-color: rgba(187, 183, 183, 0.445);
+* {
+    margin: 0;
+    padding: 0;
 }

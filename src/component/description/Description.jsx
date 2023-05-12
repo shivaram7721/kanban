@@ -1,7 +1,6 @@
 import { Dialog, DialogContent } from "@mui/material";
 import { AiOutlineEye } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import TextField from "@mui/material/TextField";
 import classes from "./Description.module.css";
 import { useState } from "react";
 import CheckBoxTwoToneIcon from "@mui/icons-material/CheckBoxTwoTone";
@@ -16,8 +15,14 @@ export default function Description() {
   const [isEditorView, setIsEditorView] = useState(false);
   const [content2, setContent2] = useState("");
 
+  const editorConfig = {
+    height: 200,
+  };
   const handleEditorChange2 = (content) => {
     setContent2(content);
+  };
+  const visibleHandler = () => {
+    setIsEditorView(false);
   };
 
   const clickHandler = () => {
@@ -42,7 +47,9 @@ export default function Description() {
             <div className={classes.DialogContent}>
               <Title clickHandler={clickHandler} />
               <div className={classes.container2}>
-                <p style={{ margin: 0 }}>Notifications</p>
+                <p style={{ margin: 0, paddingBottom: "0.5rem" }}>
+                  Notifications
+                </p>
 
                 <button onClick={() => setIsWatch(!isWatch)}>
                   <span className={classes.btn1}>
@@ -50,7 +57,11 @@ export default function Description() {
                     <span style={{ display: "flex", gap: "5px" }}>
                       {isWatch ? (
                         <span
-                          style={{ fontSize: "0.9rem", marginTop: "0.3rem" }}
+                          style={{
+                            fontSize: "0.9rem",
+                            marginTop: "0.3rem",
+                            paddingRight: "0.8rem",
+                          }}
                         >
                           Watch
                         </span>
@@ -77,21 +88,38 @@ export default function Description() {
               <span>
                 <Activity />
               </span>
-              <div>
+              <div className={classes.container3}>
                 <CgProfile style={{ fontSize: "1.7rem" }} />
                 {isEditorView ? (
-                  <Editor
-                    apiKey="<YOUR_API_KEY>"
-                    value={content2}
-                    onEditorChange={handleEditorChange2}
-                  />
+                  <span style={{ height: "10rem" }}>
+                    <Editor
+                      apiKey="<YOUR_API_KEY>"
+                      value={content2}
+                      onEditorChange={handleEditorChange2}
+                      init={editorConfig}
+                    />
+                    <button
+                      style={{
+                        margin: "0.5rem 0 1.5rem",
+                        width: "5rem",
+                        height: "2rem",
+                        background: "blue",
+                        color: "white",
+                      }}
+                      onClick={visibleHandler}
+                    >
+                      Save
+                    </button>
+                  </span>
                 ) : (
-                  <TextField
-                    id="filled-basic"
-                    label="Write a comment"
-                    variant="filled"
-                    onClick={() => setIsEditorView(true)}
-                  />
+                  <span className={classes.div2}>
+                    <input
+                      placeholder="Write a Comment..."
+                      className={classes.input}
+                      onClick={() => setIsEditorView(true)}
+                    />
+                    <div dangerouslySetInnerHTML={{ __html: content2 }} />
+                  </span>
                 )}
               </div>
             </div>

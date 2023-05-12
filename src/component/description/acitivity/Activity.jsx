@@ -7,7 +7,7 @@ export default function Activity() {
   return (
     <div className={styles.container4}>
       <span className={styles.div2}>
-        <GrSort style={{ fontSize: "1.3rem", marginRight: "1.1rem" }} />
+        <GrSort style={{ fontSize: "1.3rem", marginRight: "1.7rem" }} />
         <p className={styles.para2}>Activity</p>
       </span>
       <span className={styles.btn3}>
