@@ -17,7 +17,11 @@ export function CardList() {
               cards.map((card, index) => (
                 <Draggable draggableId={card.id} key={card.id} index={index}>
                   {(provided) => (
-                    <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+                    <div
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                    >
                       <p className={styles.card} key={card.id}>
                         {card.card}
                       </p>
@@ -25,7 +29,7 @@ export function CardList() {
                   )}
                 </Draggable>
               ))}
-              {provided.placeholder}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

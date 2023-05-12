@@ -1,22 +1,16 @@
-import {useState} from "react";
+import { useState } from "react";
 import style from "./AddListButton.module.css";
 import AddIcon from "@mui/icons-material/Add";
-import { Card } from "../../card/Card";
 
-export default function AddListButton() {
+export default function AddListButton(props) {
   const [show, setShow] = useState(true);
 
-  function handleAddList() {
-    setShow(false);
-  }
   return (
     <>
-      <button className={style.glassButton} onClick={handleAddList}>
+      <button className={style.glassButton} onClick={props.onClick}>
         <AddIcon />
         Add a List
       </button>
-
-      {show?"":<Card />}
     </>
   );
 }
