@@ -12,6 +12,7 @@ import TitleInput from "./component/titleInput/TitleInput";
 import { dashBoardData } from "./atom/Atom";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
+import Nav from "./component/nav/Nav";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -36,20 +37,22 @@ function App() {
   }
 
   return (
-    <div style={{ display: "flex", gap: "2rem" }}>
-      {/* <Card /> */}
-      {listData.map((ele) => (
-        <Card title={ele.title} />
-      ))}
-      {open ? (
-        <TitleInput
-          onChange={(e) => setListName(e.target.value)}
-          onClick={handleCreateList}
-        />
-      ) : (
-        <AddListButton onClick={handleClick} />
-      )}
-      <Description />
+    <div>
+      <Nav />
+      <div style={{ display: "flex", gap: "2rem" }}>
+        {listData.map((ele) => (
+          <Card title={ele.title} />
+        ))}
+        {open ? (
+          <TitleInput
+            onChange={(e) => setListName(e.target.value)}
+            onClick={handleCreateList}
+          />
+        ) : (
+          <AddListButton onClick={handleClick} />
+        )}
+        <Description />
+      </div>
     </div>
   );
 }
