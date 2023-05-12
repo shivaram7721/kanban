@@ -13,6 +13,12 @@ import Activity from "./acitivity/Activity";
 export default function Description() {
   const [isDialog, setIsDialog] = useState(false);
   const [isWatch, setIsWatch] = useState(true);
+  const [isEditorView, setIsEditorView] = useState(false);
+  const [content2, setContent2] = useState("");
+
+  const handleEditorChange2 = (content) => {
+    setContent2(content);
+  };
 
   const clickHandler = () => {
     setIsDialog(false);
@@ -73,11 +79,20 @@ export default function Description() {
               </span>
               <div>
                 <CgProfile style={{ fontSize: "1.7rem" }} />
-                <TextField
-                  id="filled-basic"
-                  label="Write a comment"
-                  variant="filled"
-                />
+                {isEditorView ? (
+                  <Editor
+                    apiKey="<YOUR_API_KEY>"
+                    value={content2}
+                    onEditorChange={handleEditorChange2}
+                  />
+                ) : (
+                  <TextField
+                    id="filled-basic"
+                    label="Write a comment"
+                    variant="filled"
+                    onClick={() => setIsEditorView(true)}
+                  />
+                )}
               </div>
             </div>
           </DialogContent>
