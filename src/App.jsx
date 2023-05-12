@@ -19,7 +19,7 @@ function App() {
 
 
  
-
+      <Nav/>
       <AddListButton onClick={() => setOpen(true)} />
       <Card />
       <Description />
