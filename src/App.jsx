@@ -1,7 +1,6 @@
 import "./App.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 // import Nav from "./component/nav/Nav";
-
 import { useState, useRef } from "react";
 import "./App.css";
 import AddListButton from "./component/button/addListButton/AddListButton";

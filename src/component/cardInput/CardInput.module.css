@@ -1,34 +1,31 @@
-
-
-.addCardContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.addCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .textBox {
-    text-align: center;
+  text-align: center;
 }
 
 .addCardBtn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: .5rem;
-    gap: 4rem;
-    width: 18vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem;
+  gap: 4rem;
+  width: 18vw;
 }
 
 .btnContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .addBtn {
-    background-color: rgb(58, 121, 238);
-    color: white;
-    width: 7vw;
-    /* font-size: .5rem; */
+  background-color: rgb(58, 121, 238);
+  color: white;
+  width: 7vw;
+  /* font-size: .5rem; */
 }
-
