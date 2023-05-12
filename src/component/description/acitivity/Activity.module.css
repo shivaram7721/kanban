@@ -1,0 +1,19 @@
+.container4{
+    display: flex;
+    justify-content: space-between;
+}
+.div2{
+    display: flex;
+    align-items: center;
+}
+.btn3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.para2{
+    font-size: 16px;
+    font-weight: 600;
+    font-family:
+      -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+}

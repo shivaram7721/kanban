@@ -1,31 +1,22 @@
 import { Dialog, DialogContent } from "@mui/material";
-import { MdSubtitles } from "react-icons/md";
-import { ImCross } from "react-icons/im";
 import { AiOutlineEye } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { GrSort } from "react-icons/gr";
 import TextField from "@mui/material/TextField";
 import classes from "./Description.module.css";
 import { useState } from "react";
 import CheckBoxTwoToneIcon from "@mui/icons-material/CheckBoxTwoTone";
-import SubjectIcon from "@mui/icons-material/Subject";
 import { Editor } from "@tinymce/tinymce-react";
+import Title from "./title/Title";
+import Content from "./content/Content";
+import Activity from "./acitivity/Activity";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useState(false);
-  const [isComment, setComment] = useState(true);
   const [isWatch, setIsWatch] = useState(true);
-  const [description, setDescription] = useState(true);
-  const [content, setContent] = useState("");
-  const [showContent, setShowContent] = useState(false);
-  const handleEditorChange = (content) => {
-    setContent(content);
-  };
-  const handleContent = () => {
-    setShowContent(true);
-    setDescription(true);
-  };
 
+  const clickHandler = () => {
+    setIsDialog(false);
+  };
   return (
     <div>
       <button onClick={() => setIsDialog(true)}>click me</button>
@@ -37,80 +28,51 @@ export default function Description() {
               maxWidth: "70vw",
               width: 800,
               height: "90vh",
-              // display: "Grid",
-              // gridTemplateRows: "0.5fr 2fr 0.5",
+              backgroundColor: "whitesmoke",
             },
           }}
         >
           <DialogContent>
-            <div className={classes.dialogTitle}>
-              <div>
-                <span>
-                  <MdSubtitles />
-                </span>
-                <span>
-                  <p>Cook Food</p>
-                  <p>
-                    in list{" "}
-                    <span style={{ textDecoration: "underline" }}>To Do</span>
-                  </p>
-                </span>
+            <div className={classes.DialogContent}>
+              <Title clickHandler={clickHandler} />
+              <div className={classes.container2}>
+                <p style={{ margin: 0 }}>Notifications</p>
 
-                <ImCross onClick={() => setIsDialog(false)} />
-              </div>
-              <div>
-                <p>Notifications</p>
-                <span>
-                  <button onClick={() => setIsWatch(!isWatch)}>
+                <button onClick={() => setIsWatch(!isWatch)}>
+                  <span className={classes.btn1}>
                     <AiOutlineEye />
-                    {isWatch ? (
-                      " Watch"
-                    ) : (
-                      <span>
-                        Watching
-                        <CheckBoxTwoToneIcon />
-                      </span>
-                    )}
-                  </button>
-                </span>
-              </div>
-              <div>
-                <SubjectIcon />
-                <p>Description</p>
-                {description ? (
-                  <button onClick={() => setDescription(false)}>
-                    Add a more detailed description....
-                  </button>
-                ) : (
-                  <>
-                    <Editor
-                      apiKey="<YOUR_API_KEY>"
-                      value={content}
-                      onEditorChange={handleEditorChange}
-                    />
-                    <span>
-                      <button onClick={handleContent}>Submit</button>
-                      <button onClick={() => setDescription(true)}>
-                        Cancle
-                      </button>
+                    <span style={{ display: "flex", gap: "5px" }}>
+                      {isWatch ? (
+                        <span
+                          style={{ fontSize: "0.9rem", marginTop: "0.3rem" }}
+                        >
+                          Watch
+                        </span>
+                      ) : (
+                        <>
+                          <span
+                            style={{ marginTop: "0.5rem", fontSize: "0.9rem" }}
+                          >
+                            Watching
+                          </span>
+                          <CheckBoxTwoToneIcon
+                            onClick={() => setIsWatch(true)}
+                            sx={{ fontSize: "2rem", padding: 0 }}
+                          />
+                        </>
+                      )}
                     </span>
-                  </>
-                )}
-                {showContent ? (
-                  <div dangerouslySetInnerHTML={{ __html: content }} />
-                ) : (
-                  ""
-                )}
-              </div>
-              <div>
-                <GrSort />
-                <p>Activity</p>
-                <button onClick={() => setComment(!isComment)}>
-                  {isComment ? "Show Details" : "Hide Details"}
+                  </span>
                 </button>
               </div>
+              <span>
+                <Content />
+              </span>
+              <span>
+                <Activity />
+              </span>
               <div>
-                <CgProfile />
+                <CgProfile style={{ fontSize: "1.7rem" }} />
                 <TextField
                   id="filled-basic"
                   label="Write a comment"

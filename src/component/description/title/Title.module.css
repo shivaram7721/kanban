@@ -1,0 +1,15 @@
+.dialogTitle{
+    display: grid;
+    grid-template-columns: 0.25fr 2fr 1fr 0.5fr;
+}
+.para1{
+    display: flex;
+    flex-direction: column;
+}
+.icon2{
+    grid-column: 4;
+    display: flex;
+    justify-content: end;
+    font-size: 1rem;
+    
+}
