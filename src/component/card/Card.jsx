@@ -3,25 +3,42 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 // import AddListButton from '../button/addListButton/AddListButton';
 import { IoMdAdd } from "react-icons/io";
 import { TbTemplate } from "react-icons/tb";
-import { Tooltip } from "@mui/material";
+import { MenuList, Paper, Popper, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { CardInput } from "../cardInput/CardInput";
 import { CardList } from "../cardList/CardList";
-import { useRecoilState } from "recoil";
-import { addCards } from "../../atom/Atom";
+import { constSelector, useRecoilState } from "recoil";
+import { addCards, dashBoardData } from "../../atom/Atom";
 import { DragDropContext } from "react-beautiful-dnd";
+import { MenuItem } from "@mui/base";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import React from "react";
 
-export function Card({ title }) {
-  // const [input, setInput] = useState("add Title");
-  // const [input, setInput] = useState('add Title');
+export function Card({ title, handleDelete, index }) {
   const [show, setShow] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
 
   const [cards, setcards] = useRecoilState(addCards);
+  const [data, setData] = useRecoilState(dashBoardData);
+  const [listName, setListName] = useState("");
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   function handleTitle(e) {
     setInput(e.target.value);
   }
-  // console.log(input)
 
   function handleAdd() {
     setShow(!show);
@@ -50,14 +67,63 @@ export function Card({ title }) {
     setcards(newCards);
   }
 
+  function handleTitleSave() {
+    const temp = { ...data[index] };
+    const update = [...data];
+    temp.title = listName;
+    update[index] = temp;
+    setData(update);
+
+    setIsEdit(false);
+  }
+
   return (
     <div className={styles.cardContainer}>
       <DragDropContext onDragEnd={handleDrag}>
         <div className={styles.titleContainer}>
-          <p className={styles.cardTitle} onChange={handleTitle}>
-            {title}
-          </p>
-          <HiOutlineDotsHorizontal className={styles.dotsIcon} />
+          {isEdit ? (
+            <span>
+              <input
+                // value={listName}
+                onChange={(e) => setListName(e.target.value)}
+              />
+              <button onClick={handleTitleSave}>save</button>
+            </span>
+          ) : (
+            <p
+              onClick={() => setIsEdit(true)}
+              className={styles.cardTitle}
+              onChange={handleTitle}
+            >
+              {title}
+            </p>
+          )}
+
+          <div>
+            <HiOutlineDotsHorizontal
+              className={styles.dotsIcon}
+              aria-describedby={id}
+              onClick={handleClick}
+            />
+
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+            >
+              <Typography
+                onClick={handleDelete}
+                sx={{ p: 1, width: "10rem", cursor: "pointer" }}
+              >
+                Delete List
+              </Typography>
+            </Popover>
+          </div>
         </div>
 
         <div>
