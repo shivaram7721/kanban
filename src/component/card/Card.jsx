@@ -73,7 +73,6 @@ export function Card({ title, handleDelete, index }) {
     temp.title = listName;
     update[index] = temp;
     setData(update);
-
     setIsEdit(false);
   }
 
