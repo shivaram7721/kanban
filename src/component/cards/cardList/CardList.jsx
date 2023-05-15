@@ -1,9 +1,9 @@
 import styles from "./CardList.module.css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { addCards } from "../../atom/Atom";
+import { addCards } from "../../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 // import TaskCard from "../taskCard/TaskCard";
-import { dialogBox, TaskList } from "../../atom/Atom";
+import { dialogBox, TaskList } from "../../../atom/Atom";
 
 export function CardList() {
   const cards = useRecoilValue(addCards);

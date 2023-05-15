@@ -6,7 +6,7 @@ import { TbTemplate } from "react-icons/tb";
 import { MenuList, Paper, Popper, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { CardInput } from "../cardInput/CardInput";
-import { CardList } from "../cardList/CardList";
+import { CardList } from "../cards/cardList/CardList";
 import { constSelector, useRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../atom/Atom";
 import { DragDropContext } from "react-beautiful-dnd";
