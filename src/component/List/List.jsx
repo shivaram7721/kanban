@@ -1,4 +1,4 @@
-import styles from "./Card.module.css";
+import styles from "./List.module.css";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 // import AddListButton from '../button/addListButton/AddListButton';
 import { IoMdAdd } from "react-icons/io";
@@ -15,7 +15,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
-export function Card({ title, handleDelete, index }) {
+export function List({ title, handleDelete, index }) {
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -70,7 +70,7 @@ export function Card({ title, handleDelete, index }) {
   function handleTitleSave() {
     const temp = { ...data[index] };
     const update = [...data];
-    temp.title = listName;
+    temp.listTitle = listName;
     update[index] = temp;
     setData(update);
     setIsEdit(false);

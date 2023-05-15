@@ -2,12 +2,12 @@ import { atom } from "recoil";
 
 let dashboard = [
   {
-    id: 123,
-    title: "completed",
-    list: [
+    listId: 123,
+    listTitle: "completed",
+    cards: [
       {
-        taskId: 12345,
-        title: "Do something",
+        cardId: 12345,
+        cardTitle: "Do something",
         description: "This is description",
         createdAt: "2pm",
         activity: [
@@ -37,3 +37,8 @@ export const dashBoardData = atom({
   key: "dashBoardData",
   default: [...dashboard],
 });
+
+// export const listData = atom({
+//   key : "listData",
+//   default : []
+// })

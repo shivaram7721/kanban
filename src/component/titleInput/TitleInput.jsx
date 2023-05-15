@@ -13,7 +13,12 @@ export default function TitleInput({ onChange, onClick }) {
           placeholder="add card"
           onChange={onChange}
           //   value={input}
-          sx={{ width: "18vw" }}
+          sx={{
+            width: "18vw",
+            backgroundColor: "white",
+            borderRadius: "5px",
+            border: "none",
+          }}
           size="small"
           multiline
         />
