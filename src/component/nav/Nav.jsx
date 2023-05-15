@@ -11,22 +11,22 @@ export default function Nav() {
     <nav className={styles.navContainer}>
       <div className={styles.leftSide}>
         <h3 contentEditable>Home task Managment</h3>
-        <AiOutlineStar  color="white"/>
+        <AiOutlineStar cursor='pointer' fontSize='1.4rem' color="white" />
         <button className={styles.pBtn}>
-          <AiOutlineLock  color="white"/>
+          <AiOutlineLock fontSize='1.4rem' color="white"/>
           <p>Private</p>
         </button>
         <button className={styles.boardBtn}>Board</button>
       </div>
       <div className={styles.rightSide}>
         <button className={styles.pBtn}>
-          <BiRocket color="white" /> <p>Power-Ups</p>
+          <BiRocket fontSize='1.4rem' color="white" /> <p>Power-Ups</p>
         </button>
         <button className={styles.pBtn}>
-          <AiFillThunderbolt color="white" /> <p>Automation</p>
+          <AiFillThunderbolt fontSize='1.4rem' color="white" /> <p>Automation</p>
         </button>
         <button className={styles.pBtn}>
-          <BsFilter color="white" /> <p>Filter</p>
+          <BsFilter fontSize='1.4rem' color="white" /> <p>Filter</p>
         </button>
       </div>
     </nav>
