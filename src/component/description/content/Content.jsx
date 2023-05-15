@@ -2,13 +2,16 @@ import { useState } from "react";
 import SubjectIcon from "@mui/icons-material/Subject";
 import { Editor } from "@tinymce/tinymce-react";
 import style from "./Content.module.css";
-// import dashBoardData from "../../../atom/Atom";
-// import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
+import { TaskList } from "../../../atom/Atom";
 
 export default function Content() {
   const [description, setDescription] = useState(true);
   const [content, setContent] = useState("");
   const [showContent, setShowContent] = useState(false);
+  const [updateList, SetUpdateList] = useRecoilState(TaskList);
+
+  console.log(updateList);
 
   const handleEditorChange = (content) => {
     setContent(content);
