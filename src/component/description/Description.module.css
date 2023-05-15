@@ -44,4 +44,17 @@ button:hover {
 .button2{
     width: 10rem
 }
-
+.button1{
+    width: 35rem;
+    height: 2.5rem;
+    display: flex;
+    padding: 0.7rem 1rem;
+    background-color: rgb(255, 255, 255);
+    margin-top: 1rem;
+    border: 1px solid;
+}
+.div3{
+    display: flex;
+    gap: 2rem;
+    margin: 0.5rem 0 0 1rem;
+}

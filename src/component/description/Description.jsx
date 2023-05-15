@@ -14,6 +14,8 @@ export default function Description() {
   const [isWatch, setIsWatch] = useState(true);
   const [isEditorView, setIsEditorView] = useState(false);
   const [content2, setContent2] = useState("");
+  const [comment, setComment] = useState([]);
+  const [edit, setEdit] = useState(false);
 
   const editorConfig = {
     height: 200,
@@ -23,11 +25,18 @@ export default function Description() {
   };
   const visibleHandler = () => {
     setIsEditorView(false);
+    setComment([...comment, { text: content2 }]);
+    setContent2("");
   };
-
+  console.log(comment);
   const clickHandler = () => {
     setIsDialog(false);
   };
+  const deleteComment = (id) => {
+    setComment(comment.filter((ele, index) => index !== id));
+  };
+
+  function editComment(index) {}
   return (
     <div>
       <button onClick={() => setIsDialog(true)}>click me</button>
@@ -118,7 +127,18 @@ export default function Description() {
                       className={classes.input}
                       onClick={() => setIsEditorView(true)}
                     />
-                    <div dangerouslySetInnerHTML={{ __html: content2 }} />
+                    {comment.map((ele, index) => (
+                      <div key={index}>
+                        <button
+                          className={classes.button1}
+                          dangerouslySetInnerHTML={{ __html: ele.text }}
+                        />
+                        <ul className={classes.div3}>
+                          <li onClick={() => editComment(index)}>Edit</li>
+                          <li onClick={() => deleteComment(index)}>Delete</li>
+                        </ul>
+                      </div>
+                    ))}
                   </span>
                 )}
               </div>
