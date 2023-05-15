@@ -1,19 +1,16 @@
 import styles from "./List.module.css";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
-// import AddListButton from '../button/addListButton/AddListButton';
 import { IoMdAdd } from "react-icons/io";
 import { TbTemplate } from "react-icons/tb";
-import { MenuList, Paper, Popper, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { useState } from "react";
-import { CardInput } from "../cardInput/CardInput";
+import { CardInput } from "../cards/cardInput/CardInput";
 import { CardList } from "../cards/cardList/CardList";
-import { constSelector, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../atom/Atom";
 import { DragDropContext } from "react-beautiful-dnd";
-import { MenuItem } from "@mui/base";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import React from "react";
 
 export function List({ title, handleDelete, index }) {
   const [show, setShow] = useState(true);
@@ -82,10 +79,7 @@ export function List({ title, handleDelete, index }) {
         <div className={styles.titleContainer}>
           {isEdit ? (
             <span>
-              <input
-                // value={listName}
-                onChange={(e) => setListName(e.target.value)}
-              />
+              <input onChange={(e) => setListName(e.target.value)} />
               <button onClick={handleTitleSave}>save</button>
             </span>
           ) : (
@@ -126,6 +120,7 @@ export function List({ title, handleDelete, index }) {
         </div>
 
         <div>
+          {/* map here for card data*/}
           <CardList />
         </div>
       </DragDropContext>
@@ -145,8 +140,6 @@ export function List({ title, handleDelete, index }) {
       ) : (
         <CardInput show={handleAdd} />
       )}
-
-      {/* <CardInput /> */}
     </div>
   );
 }
