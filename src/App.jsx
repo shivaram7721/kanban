@@ -8,7 +8,6 @@ function App() {
   return (
     <Routes>
       <Route path={"/"} element={<DashBoard />}></Route>
-      {/* <Route path={"/dashboard/:id"} element={<Description />}></Route> */}
     </Routes>
   );
 }

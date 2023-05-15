@@ -1,17 +1,14 @@
 import styles from "./CardList.module.css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { addCards } from "../../atom/Atom";
+import { addCards } from "../../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-// import TaskCard from "../taskCard/TaskCard";
-import { dialogBox, TaskList } from "../../atom/Atom";
+import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
 
 export function CardList() {
   const cards = useRecoilValue(addCards);
   const setIsDialog = useSetRecoilState(dialogBox);
   const setList = useSetRecoilState(TaskList);
-
-  // console.log(cards);
 
   function clickHandler(card) {
     setIsDialog(true);

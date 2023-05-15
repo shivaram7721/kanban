@@ -4,8 +4,8 @@ import { IoMdAdd } from "react-icons/io";
 import { TbTemplate } from "react-icons/tb";
 import { Tooltip } from "@mui/material";
 import { useState } from "react";
-import { CardInput } from "../cardInput/CardInput";
-import { CardList } from "../cardList/CardList";
+import { CardInput } from "../cards/cardInput/CardInput";
+import { CardList } from "../cards/cardList/CardList";
 import { useRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../atom/Atom";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -121,6 +121,7 @@ export function List({ title, handleDelete, index }) {
         </div>
 
         <div>
+          {/* map here for card data*/}
           <CardList />
         </div>
       </DragDropContext>
@@ -140,8 +141,6 @@ export function List({ title, handleDelete, index }) {
       ) : (
         <CardInput show={handleAdd} />
       )}
-
-      {/* <CardInput /> */}
     </div>
   );
 }
