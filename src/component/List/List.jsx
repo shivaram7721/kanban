@@ -22,7 +22,7 @@ export function List({ title, handleDelete, index }) {
   const [listName, setListName] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
-
+  console.log(data);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -122,7 +122,11 @@ export function List({ title, handleDelete, index }) {
 
         <div>
           {/* map here for card data*/}
-          <CardList />
+          {data &&
+            data[0].cards.map((ele) => (
+              // <CardList  />
+              <p>{ele.cardTitle}</p>
+            ))}
         </div>
       </DragDropContext>
 
