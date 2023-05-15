@@ -18,9 +18,17 @@ function App() {
   const [open, setOpen] = useState(false);
   const [listData, setListData] = useRecoilState(dashBoardData);
   const [listName, setListName] = useState("");
+  const [currIndex, setCurrIndex] = useState(null);
 
   function handleClick() {
     setOpen(true);
+  }
+
+  function handleDeleteList(index) {
+    // console.log("index" + index);
+    const tempData = [...listData];
+    const filterData = tempData.filter((ele, idx) => idx != index);
+    setListData([...filterData]);
   }
 
   function handleCreateList() {
@@ -34,15 +42,21 @@ function App() {
     // console.log(newListItem);
     const tempData = [...listData, newListItem];
     setListData([...tempData]);
+    setOpen(false);
   }
 
   return (
     <div>
       <Nav />
       <div style={{ display: "flex", gap: "2rem" }}>
-        {listData.map((ele) => (
-          <Card title={ele.title} />
+        {listData.map((ele, index) => (
+          <Card
+            title={ele.title}
+            handleDelete={() => handleDeleteList(index)}
+            index={index}
+          />
         ))}
+
         {open ? (
           <TitleInput
             onChange={(e) => setListName(e.target.value)}

@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-const dashboard = [
+let dashboard = [
   {
     id: 123,
     title: "completed",
