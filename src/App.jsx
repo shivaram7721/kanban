@@ -1,13 +1,9 @@
 import "./App.css";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-// import Nav from "./component/nav/Nav";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import "./App.css";
 import AddListButton from "./component/button/addListButton/AddListButton";
 import { Card } from "./component/card/Card";
 import Description from "./component/description/Description";
-import { dashboard } from "./data";
-import { CardInput } from "./component/cardInput/CardInput";
 import TitleInput from "./component/titleInput/TitleInput";
 import { dashBoardData } from "./atom/Atom";
 import { useRecoilState } from "recoil";
@@ -65,6 +61,7 @@ function App() {
         ) : (
           <AddListButton onClick={handleClick} />
         )}
+        {/* <Route path */}
         <Description />
       </div>
     </div>
