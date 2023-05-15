@@ -7,8 +7,7 @@ import Description from "./component/description/Description";
 function App() {
   return (
     <Routes>
-      <Route path={"/dashboard"} element={<DashBoard />}></Route>
-      <Route path={"/dashboard/:id"} element={<Description />}></Route>
+      <Route path={"/"} element={<DashBoard />}></Route>
     </Routes>
   );
 }
