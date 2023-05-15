@@ -8,9 +8,11 @@ import { Editor } from "@tinymce/tinymce-react";
 import Title from "./title/Title";
 import Content from "./content/Content";
 import Activity from "./acitivity/Activity";
+import { dialogBox } from "../../atom/Atom";
+import { useRecoilState } from "recoil";
 
 export default function Description() {
-  const [isDialog, setIsDialog] = useState(false);
+  const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useState(true);
   const [isEditorView, setIsEditorView] = useState(false);
   const [content2, setContent2] = useState("");
@@ -28,7 +30,7 @@ export default function Description() {
     setComment([...comment, { text: content2 }]);
     setContent2("");
   };
-  console.log(comment);
+  // console.log(comment);
   const clickHandler = () => {
     setIsDialog(false);
   };
@@ -36,10 +38,15 @@ export default function Description() {
     setComment(comment.filter((ele, index) => index !== id));
   };
 
-  function editComment(index) {}
+  function editComment(id) {
+    const update = comment.find((ele, index) => index === id);
+    setContent2(update);
+    setEdit(true);
+    console.log(content2);
+  }
   return (
     <div>
-      <button onClick={() => setIsDialog(true)}>click me</button>
+      {/* <button onClick={() => setIsDialog(true)}>click me</button> */}
       <div className={classes.container}>
         <Dialog
           open={isDialog}
@@ -129,14 +136,16 @@ export default function Description() {
                     />
                     {comment.map((ele, index) => (
                       <div key={index}>
-                        <button
-                          className={classes.button1}
-                          dangerouslySetInnerHTML={{ __html: ele.text }}
-                        />
-                        <ul className={classes.div3}>
-                          <li onClick={() => editComment(index)}>Edit</li>
-                          <li onClick={() => deleteComment(index)}>Delete</li>
-                        </ul>
+                        <span>
+                          <button
+                            className={classes.button1}
+                            dangerouslySetInnerHTML={{ __html: ele.text }}
+                          />
+                          <ul className={classes.div3}>
+                            <li onClick={() => editComment(index)}>Edit</li>
+                            <li onClick={() => deleteComment(index)}>Delete</li>
+                          </ul>
+                        </span>
                       </div>
                     ))}
                   </span>

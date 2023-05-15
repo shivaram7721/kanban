@@ -38,7 +38,12 @@ export const dashBoardData = atom({
   default: [...dashboard],
 });
 
-// export const listData = atom({
-//   key : "listData",
-//   default : []
-// })
+export const dialogBox = atom({
+  key: "dialogBox",
+  default: false,
+});
+
+export const TaskList = atom({
+  key: "TaskList",
+  default: {},
+});

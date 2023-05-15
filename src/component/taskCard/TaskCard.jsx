@@ -1,7 +1,7 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import Paper from "@mui/material/Paper";
 
-export default function TaskCard({ taskTitle }) {
+export default function TaskCard({ taskTitle, onClick }) {
   return (
     <Paper
       elevation={1}
@@ -13,6 +13,7 @@ export default function TaskCard({ taskTitle }) {
         cursor: "pointer",
         "&:hover": { bgcolor: "#f1f2f4" },
       }}
+      onClick={onClick}
     >
       {taskTitle}
     </Paper>
