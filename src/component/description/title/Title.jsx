@@ -2,8 +2,13 @@
 import { MdSubtitles } from "react-icons/md";
 import { ImCross } from "react-icons/im";
 import style from "./Title.module.css";
+// import dashBoardData from "../../../atom/Atom";
+// import { useRecoilValue } from "recoil";
+// import { useParams } from "react-router-dom";
 
 export default function Title({ clickHandler }) {
+  // const title = useRecoilValue(dashBoardData);
+  // const {title} = useParams();
   return (
     <div>
       <div className={style.dialogTitle}>
@@ -18,7 +23,8 @@ export default function Title({ clickHandler }) {
               fontWeight: "530",
             }}
           >
-            Cook Food
+            cook Food
+            {/* {title} */}
           </p>
           <p style={{ margin: "1px" }}>
             in list

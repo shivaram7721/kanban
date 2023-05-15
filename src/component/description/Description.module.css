@@ -2,9 +2,11 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    color: black;
 }
 .container2 {
-    margin: 2rem 2.7rem;
+    margin: 2rem 2.8rem;
+    padding-left: 0.5rem;
 }
 .btn1 {
     display: flex;
@@ -12,6 +14,47 @@
     font-size: 1.2rem;
     height: 2rem;
     align-items: center;
+    padding-left: 0.8rem;
 }
-
-
+button {
+    border: none;
+    border-radius: 10px;
+    background-color: var(--ds-background-neutral, #091e420a);
+}
+button:hover {
+    background-color: rgba(187, 183, 183, 0.445);
+}
+.container3{
+    display: flex;
+    gap : 1.1rem;
+}
+.input{
+    height: 2rem;
+    font-weight: 400;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.544);
+    padding: 0.2rem 1.3rem;
+}
+.div2{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    gap: 0.3rem;
+}
+.button2{
+    width: 10rem
+}
+.button1{
+    width: 35rem;
+    height: 2.5rem;
+    display: flex;
+    padding: 0.7rem 1rem;
+    background-color: rgb(255, 255, 255);
+    margin-top: 1rem;
+    border: 1px solid;
+}
+.div3{
+    display: flex;
+    gap: 2rem;
+    margin: 0.5rem 0 0 1rem;
+}

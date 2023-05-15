@@ -1,6 +1,4 @@
-import { atom } from "recoil";
-
-let dashboard = [
+export const dashboard = [
   {
     id: 123,
     title: "completed",
@@ -27,13 +25,3 @@ let dashboard = [
     ],
   },
 ];
-
-export const addCards = atom({
-  key: "addCards",
-  default: [],
-});
-
-export const dashBoardData = atom({
-  key: "dashBoardData",
-  default: [...dashboard],
-});
