@@ -2,11 +2,14 @@ import { useState } from "react";
 import SubjectIcon from "@mui/icons-material/Subject";
 import { Editor } from "@tinymce/tinymce-react";
 import style from "./Content.module.css";
+// import dashBoardData from "../../../atom/Atom";
+// import { useSetRecoilState } from "recoil";
 
 export default function Content() {
   const [description, setDescription] = useState(true);
   const [content, setContent] = useState("");
   const [showContent, setShowContent] = useState(false);
+
   const handleEditorChange = (content) => {
     setContent(content);
   };
@@ -22,6 +25,7 @@ export default function Content() {
           Description
         </p>
       </span>
+
       {description ? (
         <button
           onClick={() => setDescription(false)}
@@ -33,7 +37,7 @@ export default function Content() {
             margin: "0 0 1rem 3rem",
           }}
         >
-          Add a more detailed description....
+          {showContent ? "edit" : "Add a more detailed description...."}
         </button>
       ) : (
         <>

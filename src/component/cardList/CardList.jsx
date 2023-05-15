@@ -1,13 +1,20 @@
 import styles from "./CardList.module.css";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { addCards } from "../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import TaskCard from "../taskCard/TaskCard";
+import { dialogBox } from "../../atom/Atom";
 
 export function CardList() {
   const cards = useRecoilValue(addCards);
+  const setIsDialog = useSetRecoilState(dialogBox);
 
   console.log(cards);
+
+  function clickHandler(card) {
+    setIsDialog(true);
+    console.log("hello");
+  }
 
   return (
     <div>
@@ -23,8 +30,16 @@ export function CardList() {
                       {...provided.draggableProps}
                       ref={provided.innerRef}
                     >
-                      <TaskCard taskTitle={card.card} />
+                      <TaskCard
+                        taskTitle={card.card}
+                        onClick={() => clickHandler(card)}
+                      />
                       {/* <p className={styles.card} key={card.id}>
+                      <p
+                        className={styles.card}
+                        key={card.id}
+                        onClick={() => clickHandler(card)}
+                      >
                         {card.card}
                       </p> */}
                     </div>
