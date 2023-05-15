@@ -2,6 +2,7 @@ import styles from "./CardList.module.css";
 import { useRecoilValue } from "recoil";
 import { addCards } from "../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import TaskCard from "../taskCard/TaskCard";
 
 export function CardList() {
   const cards = useRecoilValue(addCards);
@@ -22,9 +23,10 @@ export function CardList() {
                       {...provided.draggableProps}
                       ref={provided.innerRef}
                     >
-                      <p className={styles.card} key={card.id}>
+                      <TaskCard taskTitle={card.card} />
+                      {/* <p className={styles.card} key={card.id}>
                         {card.card}
-                      </p>
+                      </p> */}
                     </div>
                   )}
                 </Draggable>
