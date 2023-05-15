@@ -10,6 +10,7 @@ import Content from "./content/Content";
 import Activity from "./acitivity/Activity";
 import { dialogBox } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
@@ -18,6 +19,7 @@ export default function Description() {
   const [content2, setContent2] = useState("");
   const [comment, setComment] = useState([]);
   const [edit, setEdit] = useState(false);
+  const navigate = useNavigate();
 
   const editorConfig = {
     height: 200,
@@ -33,6 +35,7 @@ export default function Description() {
   // console.log(comment);
   const clickHandler = () => {
     setIsDialog(false);
+    navigate("/");
   };
   const deleteComment = (id) => {
     setComment(comment.filter((ele, index) => index !== id));

@@ -4,6 +4,7 @@ import { addCards } from "../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 // import TaskCard from "../taskCard/TaskCard";
 import { dialogBox, TaskList } from "../../atom/Atom";
+import { Link } from "react-router-dom";
 
 export function CardList() {
   const cards = useRecoilValue(addCards);
@@ -32,14 +33,15 @@ export function CardList() {
                       {...provided.draggableProps}
                       ref={provided.innerRef}
                     >
-                      {/* <TaskCard taskTitle={card.card} onClick={clickHandler} /> */}
-                      <p
-                        className={styles.card}
-                        key={card.id}
-                        onClick={() => clickHandler(card)}
-                      >
-                        {card.card}
-                      </p>
+                      <Link to={`?id=${card.id}`} className={styles.link}>
+                        <p
+                          className={styles.card}
+                          key={card.id}
+                          onClick={() => clickHandler(card)}
+                        >
+                          {card.card}
+                        </p>
+                      </Link>
                     </div>
                   )}
                 </Draggable>
