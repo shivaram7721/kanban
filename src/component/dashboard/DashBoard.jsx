@@ -16,9 +16,9 @@ export default function DashBoard() {
     setOpen(true);
   }
 
-  function handleDeleteList(index) {
+  function handleDeleteList(listId) {
     const tempData = [...listData];
-    const filterData = tempData.filter((ele, idx) => idx != index);
+    const filterData = tempData.filter((ele) => ele.listId != listId);
     setListData(filterData);
   }
 
@@ -42,8 +42,9 @@ export default function DashBoard() {
           <List
             key={ele.listId}
             title={ele.listTitle}
-            handleDelete={() => handleDeleteList(index)}
+            handleDelete={() => handleDeleteList(ele.listId)}
             index={index}
+            listData={ele}
           />
         ))}
 

@@ -74,7 +74,7 @@ export function CardInput({ show, index }) {
               Add card
             </Button>
             {/* <RxCross2 style={{fontSize:"1rem"}}/> */}
-            <CloseIcon />
+            <CloseIcon onClick={show} />
           </div>
           {/* <HiOutlineDotsHorizontal /> */}
         </div>

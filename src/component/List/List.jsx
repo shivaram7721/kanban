@@ -13,7 +13,8 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 
-export function List({ title, handleDelete, index }) {
+export function List({ title, handleDelete, index, listData }) {
+  const { listId } = listData;
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -65,13 +66,23 @@ export function List({ title, handleDelete, index }) {
     setcards(newCards);
   }
 
-  function handleTitleSave() {
+  function handleTitleEdit() {
     const temp = { ...data[index] };
     const update = [...data];
     temp.listTitle = listName;
     update[index] = temp;
     setData(update);
     setIsEdit(false);
+  }
+
+  // functions for card CRUD
+  function handleCardDelete(cardId) {
+    const found = data.find((ele) => ele.listId == listId);
+    console.log("found" + found);
+    // const temp = [...data[index].cards];
+    // console.log("index is " + index);
+    // const filteredData = temp.filter((ele) => ele.cardId != cardId);
+    // setData(filteredData);
   }
 
   return (
@@ -81,7 +92,7 @@ export function List({ title, handleDelete, index }) {
           {isEdit ? (
             <span>
               <input onChange={(e) => setListName(e.target.value)} />
-              <button onClick={handleTitleSave}>save</button>
+              <button onClick={handleTitleEdit}>save</button>
             </span>
           ) : (
             <p
@@ -124,10 +135,12 @@ export function List({ title, handleDelete, index }) {
           {/* map here for card data*/}
           {data &&
             data[index].cards.map((ele, index) => (
-              <>
-                <CardItem cardData={ele} index={index} key={ele.cardId} />
-              </>
-              // <p>{ele.cardTitle}</p>
+              <CardItem
+                cardData={ele}
+                index={index}
+                key={ele.cardId}
+                handleCardDelete={() => handleCardDelete(ele.cardId)}
+              />
             ))}
         </div>
       </DragDropContext>

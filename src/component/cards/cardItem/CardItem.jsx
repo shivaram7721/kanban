@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 
-export function CardItem({ cardData, index }) {
+export function CardItem({ cardData, index, handleCardDelete }) {
   const { cardTitle, cardId } = cardData;
   const cards = useRecoilValue(addCards);
   const setIsDialog = useSetRecoilState(dialogBox);
@@ -42,7 +42,7 @@ export function CardItem({ cardData, index }) {
                     </Link>
                     <span className={styles.icons}>
                       <AiTwotoneEdit />
-                      <MdDelete />
+                      <MdDelete onClick={handleCardDelete} />
                     </span>
                   </span>
                 </div>
