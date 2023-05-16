@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import { atom } from "recoil";
+import { v4 as uuidv4 } from "uuid";
 
 let dashboard = [
   {
-    listId: 123,
+    listId: uuidv4(),
     listTitle: "completed",
     cards: [
       {
