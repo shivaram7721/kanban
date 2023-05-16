@@ -5,7 +5,8 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
 
-export function CardList({ title }) {
+export function CardList({ cardData, index }) {
+  const { cardTitle, cardId } = cardData;
   const cards = useRecoilValue(addCards);
   const setIsDialog = useSetRecoilState(dialogBox);
   const setList = useSetRecoilState(TaskList);
@@ -21,28 +22,26 @@ export function CardList({ title }) {
       <Droppable droppableId="todo" type="cards">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {cards &&
-              cards.map((card, index) => (
-                <Draggable draggableId={card.id} key={card.id} index={index}>
-                  {(provided) => (
-                    <div
-                      {...provided.dragHandleProps}
-                      {...provided.draggableProps}
-                      ref={provided.innerRef}
+            <Draggable draggableId={cardId} key={cardId} index={index}>
+              {(provided) => (
+                <div
+                  {...provided.dragHandleProps}
+                  {...provided.draggableProps}
+                  ref={provided.innerRef}
+                >
+                  <Link to={`?id=${cardId}`} className={styles.link}>
+                    <p
+                      className={styles.card}
+                      // key={card.id}
+                      // onClick={() => clickHandler(card)}
                     >
-                      <Link to={`?id=${card.id}`} className={styles.link}>
-                        <p
-                          className={styles.card}
-                          key={card.id}
-                          onClick={() => clickHandler(card)}
-                        >
-                          {card.card}
-                        </p>
-                      </Link>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+                      {cardTitle}
+                    </p>
+                  </Link>
+                </div>
+              )}
+            </Draggable>
+
             {provided.placeholder}
           </div>
         )}

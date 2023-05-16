@@ -123,9 +123,9 @@ export function List({ title, handleDelete, index }) {
         <div>
           {/* map here for card data*/}
           {data &&
-            data[index].cards.map((ele) => (
-              // <CardList  />
-              <p>{ele.cardTitle}</p>
+            data[index].cards.map((ele, index) => (
+              <CardList cardData={ele} index={index} />
+              // <p>{ele.cardTitle}</p>
             ))}
         </div>
       </DragDropContext>
