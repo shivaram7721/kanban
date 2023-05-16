@@ -1,7 +1,13 @@
 .cardContainer {
   width: 20vw;
-  background-color: white;
+  background-color: #f1f2f4;
   border-radius: 15px;
+  height: fit-content;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
 }
 
 .titleContainer {
@@ -9,6 +15,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 1.4rem 0 1.4rem;
+
 }
 
 .cardTitle {
@@ -30,11 +37,12 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: 15px;
-  padding: 0 5px 0 5px;
+  width: 100%;
 }
 
 .cardBtn:hover {
   background-color: rgb(189, 184, 184);
+  padding: 0.5rem;
 }
 
 .addIcon {
@@ -48,10 +56,7 @@
 .addCardBtn {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 1.4rem 0 1.4rem;
   border-radius: 15px;
-  background-color: rgb(194, 189, 189, 0.3);
   cursor: pointer;
 }
 

@@ -7,6 +7,9 @@ function Comment() {
   const [isEditorView, setIsEditorView] = useState(false);
   const [content2, setContent2] = useState("");
   const [comment, setComment] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+
   const now = new Date();
   const options = {
     month: "long",
@@ -36,8 +39,16 @@ function Comment() {
   function editComment(id) {
     const update = comment.find((ele, index) => index === id);
     setContent2(update);
+    setIsEdit(true);
+    setInputValue(update.text);
     console.log(content2);
   }
+
+  const updateContent = () => {
+    console.log(inputValue);
+    console.log(comment);
+    // setContent2[0].text = inputValue;
+  };
   return (
     <div className={style.container3}>
       <CgProfile style={{ fontSize: "1.7rem" }} />
@@ -69,21 +80,34 @@ function Comment() {
             className={style.input}
             onClick={() => setIsEditorView(true)}
           />
-          {comment.map((ele, index) => (
-            <div key={index} className={style.div4}>
-              <span>
-                <button
-                  className={style.button1}
-                  dangerouslySetInnerHTML={{ __html: ele.text }}
-                />
-                <ul className={style.div3}>
-                  <li onClick={() => editComment(index)}>Edit</li>
-                  <li onClick={() => deleteComment(index)}>Delete</li>
-                </ul>
-              </span>
-              <p>{ele.time}</p>
-            </div>
-          ))}
+          {isEdit ? (
+            <>
+              <input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <button onClick={updateContent}>Update</button>
+            </>
+          ) : (
+            <>
+              {comment.map((ele, index) => (
+                <div key={index} className={style.div4}>
+                  <span>
+                    <button
+                      className={style.button1}
+                      dangerouslySetInnerHTML={{ __html: ele.text }}
+                    />
+
+                    <ul className={style.div3}>
+                      <li onClick={() => editComment(index)}>Edit</li>
+                      <li onClick={() => deleteComment(index)}>Delete</li>
+                    </ul>
+                  </span>
+                  <p>{ele.time}</p>
+                </div>
+              ))}
+            </>
+          )}
         </span>
       )}
     </div>

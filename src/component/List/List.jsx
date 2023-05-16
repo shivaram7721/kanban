@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./List.module.css";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoMdAdd } from "react-icons/io";

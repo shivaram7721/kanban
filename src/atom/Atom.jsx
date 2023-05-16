@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { atom } from "recoil";
 
 let dashboard = [
@@ -38,12 +39,22 @@ export const dashBoardData = atom({
   default: [...dashboard],
 });
 
-export const dialogBox = atom({
-  key: "dialogBox",
-  default: false,
-});
+// export const dialogBox = atom({
+//   key: "dialogBox",
+//   default: false,
+// });
 
 export const TaskList = atom({
   key: "TaskList",
   default: {},
+});
+
+export const watchNotification = atom({
+  key: "watchNotification",
+  default: true,
+});
+
+export const dialogBox = atom({
+  key: "dialogBox",
+  default: false,
 });

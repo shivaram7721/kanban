@@ -2,19 +2,15 @@ import styles from "./CardList.module.css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { addCards } from "../../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
+import { dialogBox } from "../../../atom/Atom";
+// import { AiOutlineEye } from "react-icons/ai";
+// import { FaRegComment } from "react-icons/fa";
 
 export function CardList({ title }) {
   const cards = useRecoilValue(addCards);
-  const setIsDialog = useSetRecoilState(dialogBox);
+  // const setIsWatch = useSetRecoilState(watchNotification);
   const setList = useSetRecoilState(TaskList);
-
-  function clickHandler(card) {
-    setIsDialog(true);
-    setList(card);
-    console.log("hello");
-  }
 
   return (
     <div>
@@ -26,19 +22,20 @@ export function CardList({ title }) {
                 <Draggable draggableId={card.id} key={card.id} index={index}>
                   {(provided) => (
                     <div
+                      className={styles.card}
                       {...provided.dragHandleProps}
                       {...provided.draggableProps}
                       ref={provided.innerRef}
                     >
-                      <Link to={`?id=${card.id}`} className={styles.link}>
-                        <p
-                          className={styles.card}
-                          key={card.id}
-                          onClick={() => clickHandler(card)}
-                        >
-                          {card.card}
-                        </p>
-                      </Link>
+                      <span>
+                        <Link to={`?id=${card.id}`} className={styles.link}>
+                          <p key={card.id}>{card.card}</p>
+                        </Link>
+                      </span>
+                      {/* <span className={styles.div}>
+                        <AiOutlineEye onClick={() => setIsWatch(false)} />
+                        <FaRegComment />
+                      </span> */}
                     </div>
                   )}
                 </Draggable>

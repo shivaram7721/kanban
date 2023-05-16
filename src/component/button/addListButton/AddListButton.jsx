@@ -1,10 +1,9 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+
 import style from "./AddListButton.module.css";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function AddListButton(props) {
-  const [show, setShow] = useState(true);
-
   return (
     <>
       <button className={style.glassButton} onClick={props.onClick}>
