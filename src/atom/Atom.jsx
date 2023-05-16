@@ -10,7 +10,7 @@ let dashboard = [
         cardId: 12345,
         cardTitle: "Do something",
         description: "This is description",
-        createdAt: "2pm",
+        createdAt: new Date().toLocaleString(),
         activity: [
           {
             changes: "xyz added this card to todo",
@@ -19,7 +19,7 @@ let dashboard = [
         ],
       },
     ],
-    createdAt: "2pm",
+    createdAt: new Date().toLocaleString(),
     activity: [
       {
         changes: "xyz added this card to todo",
@@ -48,16 +48,3 @@ export const TaskList = atom({
   key: "TaskList",
   default: {},
 });
-
-///
-// dashboard => list (map)
-// list => card (map)
-
-// list
-
-// list title
-// map Card
-// input area
-
-// card
-// title
