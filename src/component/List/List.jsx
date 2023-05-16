@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./List.module.css";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoMdAdd } from "react-icons/io";
@@ -11,7 +12,6 @@ import { addCards, dashBoardData } from "../../atom/Atom";
 import { DragDropContext } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import React from "react";
 
 export function List({ title, handleDelete, index }) {
   const [show, setShow] = useState(true);
@@ -124,7 +124,9 @@ export function List({ title, handleDelete, index }) {
           {/* map here for card data*/}
           {data &&
             data[index].cards.map((ele, index) => (
-              <CardItem cardData={ele} index={index} key={ele.cardId} />
+              <>
+                <CardItem cardData={ele} index={index} key={ele.cardId} />
+              </>
               // <p>{ele.cardTitle}</p>
             ))}
         </div>

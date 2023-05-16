@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import styles from "./TitleInput.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
 export default function TitleInput({ onChange, onClick }) {
   return (
@@ -14,7 +14,7 @@ export default function TitleInput({ onChange, onClick }) {
           onChange={onChange}
           //   value={input}
           sx={{
-            width: "18vw",
+            width: "15rem",
             backgroundColor: "white",
             borderRadius: "5px",
             border: "none",
@@ -24,23 +24,23 @@ export default function TitleInput({ onChange, onClick }) {
         />
       </div>
       <div className={styles.addCardBtn}>
-        <div className={styles.btnContainer}>
+        <span className={styles.btnContainer}>
           <Button
             onClick={onClick}
             variant="contained"
             sx={{
               backgroundColor: "rgb(58, 121, 238)",
               color: "white",
-              fontSize: ".72rem",
+              fontSize: "0.8rem",
+              padding: "0.2rem",
+              height: "2rem",
             }}
             className={styles.addBtn}
           >
             Add card
           </Button>
-          {/* <RxCross2 style={{fontSize:"1rem"}}/> */}
           <CloseIcon />
-        </div>
-        <HiOutlineDotsHorizontal />
+        </span>
       </div>
     </div>
   );
