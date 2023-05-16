@@ -6,7 +6,7 @@ import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 // import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { addCards, dashBoardData } from "../../atom/Atom";
+import { addCards, dashBoardData } from "../../../atom/Atom";
 import { v4 as uuidv4 } from "uuid";
 
 export function CardInput({ show, index }) {
@@ -23,7 +23,6 @@ export function CardInput({ show, index }) {
 
   function handleAddCard() {
     const temp = [...cardData[index].cards];
-    console.log("index is " + index);
     const newCard = {
       cardId: uuidv4(),
       cardTitle: input,

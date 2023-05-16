@@ -1,45 +1,47 @@
-import styles from "./CardList.module.css";
+import styles from "./CardItem.module.css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { addCards } from "../../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
-import { dialogBox } from "../../../atom/Atom";
-// import { AiOutlineEye } from "react-icons/ai";
-// import { FaRegComment } from "react-icons/fa";
 
-export function CardList({ title }) {
+export function CardItem({ cardData, index }) {
+  const { cardTitle, cardId } = cardData;
   const cards = useRecoilValue(addCards);
-  // const setIsWatch = useSetRecoilState(watchNotification);
+  const setIsDialog = useSetRecoilState(dialogBox);
   const setList = useSetRecoilState(TaskList);
+
+  function clickHandler(card) {
+    setIsDialog(true);
+    setList(card);
+    console.log("hello");
+  }
 
   return (
     <div>
       <Droppable droppableId="todo" type="cards">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {cards &&
-              cards.map((card, index) => (
-                <Draggable draggableId={card.id} key={card.id} index={index}>
-                  {(provided) => (
-                    <div
+            <Draggable draggableId={cardId} key={cardId} index={index}>
+              {(provided) => (
+                <div
+                  {...provided.dragHandleProps}
+                  {...provided.draggableProps}
+                  ref={provided.innerRef}
+                >
+                  <Link to={`?id=${cardId}`} className={styles.link}>
+                    <p
                       className={styles.card}
-                      {...provided.dragHandleProps}
-                      {...provided.draggableProps}
-                      ref={provided.innerRef}
+                      // key={card.id}
+                      // onClick={() => clickHandler(card)}
                     >
-                      <span>
-                        <Link to={`?id=${card.id}`} className={styles.link}>
-                          <p key={card.id}>{card.card}</p>
-                        </Link>
-                      </span>
-                      {/* <span className={styles.div}>
-                        <AiOutlineEye onClick={() => setIsWatch(false)} />
-                        <FaRegComment />
-                      </span> */}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+                      {cardTitle}
+                    </p>
+                  </Link>
+                </div>
+              )}
+            </Draggable>
+
             {provided.placeholder}
           </div>
         )}

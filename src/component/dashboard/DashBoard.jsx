@@ -40,7 +40,7 @@ export default function DashBoard() {
       <div style={{ display: "flex", gap: "2rem", padding: "1rem" }}>
         {listData.map((ele, index) => (
           <List
-            key={index}
+            key={ele.listId}
             title={ele.listTitle}
             handleDelete={() => handleDeleteList(index)}
             index={index}
