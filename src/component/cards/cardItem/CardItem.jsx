@@ -1,11 +1,11 @@
-import styles from "./CardList.module.css";
+import styles from "./CardItem.module.css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { addCards } from "../../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
 
-export function CardList({ cardData, index }) {
+export function CardItem({ cardData, index }) {
   const { cardTitle, cardId } = cardData;
   const cards = useRecoilValue(addCards);
   const setIsDialog = useSetRecoilState(dialogBox);
