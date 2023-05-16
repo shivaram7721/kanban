@@ -5,7 +5,7 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
 
-export function CardItem({ cardData, index }) {
+export function CardItem({ cardData, index, onClick }) {
   const { cardTitle, cardId } = cardData;
   const cards = useRecoilValue(addCards);
   const setIsDialog = useSetRecoilState(dialogBox);
@@ -32,6 +32,7 @@ export function CardItem({ cardData, index }) {
                   <Link to={`?id=${cardId}`} className={styles.link}>
                     <p
                       className={styles.card}
+                      // onClick={onClick}
                       // key={card.id}
                       // onClick={() => clickHandler(card)}
                     >

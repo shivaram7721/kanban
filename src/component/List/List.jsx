@@ -65,13 +65,22 @@ export function List({ title, handleDelete, index }) {
     setcards(newCards);
   }
 
-  function handleTitleSave() {
+  function handleTitleEdit() {
     const temp = { ...data[index] };
     const update = [...data];
     temp.listTitle = listName;
     update[index] = temp;
     setData(update);
     setIsEdit(false);
+  }
+
+  // functions for card CRUD
+  function handleCardDelete(cardId) {
+    const temp = [...data];
+    const filteredData = temp[index].cards.filter(
+      (ele) => ele.cardId != cardId
+    );
+    setData(filteredData);
   }
 
   return (
@@ -81,7 +90,7 @@ export function List({ title, handleDelete, index }) {
           {isEdit ? (
             <span>
               <input onChange={(e) => setListName(e.target.value)} />
-              <button onClick={handleTitleSave}>save</button>
+              <button onClick={handleTitleEdit}>save</button>
             </span>
           ) : (
             <p
@@ -124,7 +133,12 @@ export function List({ title, handleDelete, index }) {
           {/* map here for card data*/}
           {data &&
             data[index].cards.map((ele, index) => (
-              <CardItem cardData={ele} index={index} key={ele.cardId} />
+              <CardItem
+                cardData={ele}
+                index={index}
+                key={ele.cardId}
+                onClick={() => handleCardDelete(ele.cardId)}
+              />
               // <p>{ele.cardTitle}</p>
             ))}
         </div>
