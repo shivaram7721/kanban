@@ -5,10 +5,10 @@ import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { addCards, dashBoardData } from "../../../atom/Atom";
+import { addCards, dashBoardData } from "../../atom/Atom";
 import { v4 as uuidv4 } from "uuid";
 
-export function CardInput({ show }) {
+export function CardInput({ show, index }) {
   const [card, setCard] = useRecoilState(addCards);
   const [cardData, setCardData] = useRecoilState(dashBoardData);
   const [input, setInput] = useState("");
@@ -21,7 +21,8 @@ export function CardInput({ show }) {
   }
 
   function handleAddCard() {
-    const temp = [...cardData[0].cards];
+    const temp = [...cardData[index].cards];
+    console.log("index is " + index);
     const newCard = {
       cardId: uuidv4(),
       cardTitle: input,
@@ -35,34 +36,13 @@ export function CardInput({ show }) {
       ],
     };
     temp.push(newCard);
-
-    // console.log(temp);
-    const updated = [...cardData];
-    updated[0].cards = temp;
-    // setCardData(updated);
-    setInput3(updated);
-    console.log(input3);
-    // console.log(data);
+    const updated = { ...cardData[index], cards: temp };
+    const final = [...cardData];
+    final[index] = updated;
+    console.log(updated);
+    setCardData(final);
+    setInput("");
   }
-
-  // function handleAddCard() {
-  //   const cardInput = input;
-  //   // setInput(cardInput);
-
-  //   console.log(cardInput);
-  //   if (cardInput) {
-  //     setCard([
-  //       ...card,
-  //       {
-  //         id: uuidv4(),
-  //         title: "todo",
-  //         card: input,
-  //       },
-  //     ]);
-  //   }
-  //   setInput("");
-  //   show(!show);
-  // }
 
   return (
     <div className={styles.container}>
