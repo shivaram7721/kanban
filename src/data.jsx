@@ -25,3 +25,27 @@ export const dashboard = [
     ],
   },
 ];
+
+const user = {
+  name: "",
+  mobile: 1234567890,
+  mail: "",
+  address: [
+    {
+      flat: "",
+      Locality: "",
+      Landmark: "",
+      PinCode: "",
+      City: "",
+      State: "",
+    },
+  ],
+};
+
+const products = [
+  {
+    product: "",
+    img: "",
+    price: 100,
+  },
+];

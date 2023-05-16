@@ -4,7 +4,7 @@ import { IoMdAdd } from "react-icons/io";
 import { TbTemplate } from "react-icons/tb";
 import { Tooltip } from "@mui/material";
 import { useState } from "react";
-import { CardInput } from "../cards/cardInput/CardInput";
+import { CardInput } from "../cardInput/CardInput";
 import { CardList } from "../cards/cardList/CardList";
 import { useRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../atom/Atom";
@@ -123,7 +123,7 @@ export function List({ title, handleDelete, index }) {
         <div>
           {/* map here for card data*/}
           {data &&
-            data[0].cards.map((ele) => (
+            data[index].cards.map((ele) => (
               // <CardList  />
               <p>{ele.cardTitle}</p>
             ))}
@@ -143,7 +143,7 @@ export function List({ title, handleDelete, index }) {
           </Tooltip>
         </div>
       ) : (
-        <CardInput show={handleAdd} />
+        <CardInput show={handleAdd} index={index} />
       )}
     </div>
   );

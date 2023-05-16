@@ -1,8 +1,9 @@
 import { atom } from "recoil";
+import { v4 as uuidv4 } from "uuid";
 
 let dashboard = [
   {
-    listId: 123,
+    listId: uuidv4(),
     listTitle: "completed",
     cards: [
       {
@@ -47,3 +48,16 @@ export const TaskList = atom({
   key: "TaskList",
   default: {},
 });
+
+///
+// dashboard => list (map)
+// list => card (map)
+
+// list
+
+// list title
+// map Card
+// input area
+
+// card
+// title
