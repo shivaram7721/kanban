@@ -1,33 +1,27 @@
 import { Dialog, DialogContent } from "@mui/material";
 import { AiOutlineEye } from "react-icons/ai";
+import { dialogBox, watchNotification } from "../../atom/Atom";
 import classes from "./Description.module.css";
-import { useState } from "react";
 import CheckBoxTwoToneIcon from "@mui/icons-material/CheckBoxTwoTone";
 import Title from "./title/Title";
 import Content from "./content/Content";
 import Activity from "./acitivity/Activity";
-import { dialogBox } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import Comment from "./comment/Comment";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
-  const [isWatch, setIsWatch] = useState(true);
-  const [isEditorView, setIsEditorView] = useState(false);
-  const [content2, setContent2] = useState("");
-  const [comment, setComment] = useState([]);
-  const [edit, setEdit] = useState(false);
+  const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const navigate = useNavigate();
 
-  const clickHandler = () => {
+  const changeHandler = () => {
     setIsDialog(false);
     navigate("/");
   };
 
   return (
     <div>
-      {/* <button onClick={() => setIsDialog(true)}>click me</button> */}
       <div className={classes.container}>
         <Dialog
           open={isDialog}
@@ -42,7 +36,7 @@ export default function Description() {
         >
           <DialogContent>
             <div className={classes.DialogContent}>
-              <Title clickHandler={clickHandler} />
+              <Title clickHandler={changeHandler} />
               <div className={classes.container2}>
                 <p style={{ margin: 0, paddingBottom: "0.5rem" }}>
                   Notifications

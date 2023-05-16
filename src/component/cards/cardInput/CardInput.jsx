@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import styles from "./CardInput.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+// import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../../atom/Atom";
 import { v4 as uuidv4 } from "uuid";
@@ -22,6 +23,7 @@ export function CardInput({ show, index }) {
 
   function handleAddCard() {
     const temp = [...cardData[index].cards];
+    console.log("index is " + index);
     const newCard = {
       cardId: uuidv4(),
       cardTitle: input,
@@ -52,7 +54,7 @@ export function CardInput({ show, index }) {
             placeholder="add card"
             onChange={handleChange}
             value={input}
-            sx={{ width: "18vw" }}
+            sx={{ width: "18vw", backgroundColor: "white" }}
             size="small"
             multiline
           />
@@ -74,7 +76,7 @@ export function CardInput({ show, index }) {
             {/* <RxCross2 style={{fontSize:"1rem"}}/> */}
             <CloseIcon onClick={show} />
           </div>
-          <HiOutlineDotsHorizontal />
+          {/* <HiOutlineDotsHorizontal /> */}
         </div>
       </div>
     </div>

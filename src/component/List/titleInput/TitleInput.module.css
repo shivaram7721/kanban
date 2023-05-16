@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  padding: 0.5rem;
+  width: 15rem;
+  background-color: white;
 }
 
 .textBox {
@@ -12,15 +17,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0.5rem;
+  margin-top: 0.5rem;
   gap: 4rem;
-  width: 18vw;
+  width: 13rem;
 }
 
 .btnContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  gap: 0.5rem;
 }
 
 .addBtn {

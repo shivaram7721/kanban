@@ -1,3 +1,5 @@
+
+
 .addCardContainer {
   display: flex;
   flex-direction: column;
@@ -19,8 +21,10 @@
 
 .btnContainer {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
+  width: 100%;
+  gap: 0.8rem;
 }
 
 .addBtn {

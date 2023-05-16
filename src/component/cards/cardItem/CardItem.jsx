@@ -4,8 +4,10 @@ import { addCards } from "../../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
+import { AiTwotoneEdit } from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
 
-export function CardItem({ cardData, index, onClick }) {
+export function CardItem({ cardData, index, handleCardDelete }) {
   const { cardTitle, cardId } = cardData;
   const cards = useRecoilValue(addCards);
   const setIsDialog = useSetRecoilState(dialogBox);
@@ -18,7 +20,7 @@ export function CardItem({ cardData, index, onClick }) {
   }
 
   return (
-    <div>
+    <div className={styles.card}>
       <Droppable droppableId="todo" type="cards">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -29,16 +31,20 @@ export function CardItem({ cardData, index, onClick }) {
                   {...provided.draggableProps}
                   ref={provided.innerRef}
                 >
-                  <Link to={`?id=${cardId}`} className={styles.link}>
-                    <p
-                      className={styles.card}
-                      // onClick={onClick}
+                  <span className={styles.containerCard}>
+                    <Link to={`?id=${cardId}`} className={styles.link}>
+                      <p
                       // key={card.id}
                       // onClick={() => clickHandler(card)}
-                    >
-                      {cardTitle}
-                    </p>
-                  </Link>
+                      >
+                        {cardTitle}
+                      </p>
+                    </Link>
+                    <span className={styles.icons}>
+                      <AiTwotoneEdit />
+                      <MdDelete onClick={handleCardDelete} />
+                    </span>
+                  </span>
                 </div>
               )}
             </Draggable>

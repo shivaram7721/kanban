@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./List.module.css";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoMdAdd } from "react-icons/io";
@@ -11,9 +12,9 @@ import { addCards, dashBoardData } from "../../atom/Atom";
 import { DragDropContext } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import React from "react";
 
-export function List({ title, handleDelete, index }) {
+export function List({ title, handleDelete, index, listData }) {
+  const { listId } = listData;
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -76,11 +77,12 @@ export function List({ title, handleDelete, index }) {
 
   // functions for card CRUD
   function handleCardDelete(cardId) {
-    const temp = [...data];
-    const filteredData = temp[index].cards.filter(
-      (ele) => ele.cardId != cardId
-    );
-    setData(filteredData);
+    const found = data.find((ele) => ele.listId == listId);
+    console.log("found" + found);
+    // const temp = [...data[index].cards];
+    // console.log("index is " + index);
+    // const filteredData = temp.filter((ele) => ele.cardId != cardId);
+    // setData(filteredData);
   }
 
   return (
@@ -137,9 +139,8 @@ export function List({ title, handleDelete, index }) {
                 cardData={ele}
                 index={index}
                 key={ele.cardId}
-                onClick={() => handleCardDelete(ele.cardId)}
+                handleCardDelete={() => handleCardDelete(ele.cardId)}
               />
-              // <p>{ele.cardTitle}</p>
             ))}
         </div>
       </DragDropContext>

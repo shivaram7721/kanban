@@ -1,7 +1,6 @@
 import { useState } from "react";
 import AddListButton from "../button/addListButton/AddListButton";
 import { List } from "../List/List";
-import Description from "../description/Description";
 import TitleInput from "../list/titleInput/TitleInput";
 import { dashBoardData } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
@@ -38,7 +37,7 @@ export default function DashBoard() {
   return (
     <div>
       <Nav />
-      <div style={{ display: "flex", gap: "2rem" }}>
+      <div style={{ display: "flex", gap: "2rem", padding: "1rem" }}>
         {listData.map((ele, index) => (
           <List
             key={ele.listId}
@@ -57,8 +56,6 @@ export default function DashBoard() {
         ) : (
           <AddListButton onClick={handleClick} />
         )}
-        {/* <Route path */}
-        <Description />
       </div>
     </div>
   );
