@@ -5,7 +5,7 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
 
-export function CardList() {
+export function CardList({ title }) {
   const cards = useRecoilValue(addCards);
   const setIsDialog = useSetRecoilState(dialogBox);
   const setList = useSetRecoilState(TaskList);
