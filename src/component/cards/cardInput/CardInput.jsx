@@ -23,6 +23,7 @@ export function CardInput({ show, index }) {
 
   function handleAddCard() {
     const temp = [...cardData[index].cards];
+    console.log("index is " + index);
     const newCard = {
       cardId: uuidv4(),
       cardTitle: input,

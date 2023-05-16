@@ -124,7 +124,9 @@ export function List({ title, handleDelete, index }) {
           {/* map here for card data*/}
           {data &&
             data[index].cards.map((ele, index) => (
-              <CardItem cardData={ele} index={index} key={ele.cardId} />
+              <>
+                <CardItem cardData={ele} index={index} key={ele.cardId} />
+              </>
               // <p>{ele.cardTitle}</p>
             ))}
         </div>

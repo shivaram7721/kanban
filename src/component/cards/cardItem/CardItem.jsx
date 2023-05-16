@@ -4,6 +4,8 @@ import { addCards } from "../../../atom/Atom";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
+import { AiTwotoneEdit } from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
 
 export function CardItem({ cardData, index }) {
   const { cardTitle, cardId } = cardData;
@@ -18,7 +20,7 @@ export function CardItem({ cardData, index }) {
   }
 
   return (
-    <div>
+    <div className={styles.card}>
       <Droppable droppableId="todo" type="cards">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -29,15 +31,20 @@ export function CardItem({ cardData, index }) {
                   {...provided.draggableProps}
                   ref={provided.innerRef}
                 >
-                  <Link to={`?id=${cardId}`} className={styles.link}>
-                    <p
-                      className={styles.card}
+                  <span className={styles.containerCard}>
+                    <Link to={`?id=${cardId}`} className={styles.link}>
+                      <p
                       // key={card.id}
                       // onClick={() => clickHandler(card)}
-                    >
-                      {cardTitle}
-                    </p>
-                  </Link>
+                      >
+                        {cardTitle}
+                      </p>
+                    </Link>
+                    <span className={styles.icons}>
+                      <AiTwotoneEdit />
+                      <MdDelete />
+                    </span>
+                  </span>
                 </div>
               )}
             </Draggable>
