@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 export default function Title({ clickHandler }) {
   const title = useRecoilValue(TaskList);
 
+  console.log(title);
   return (
     <div>
       <div className={style.dialogTitle}>
@@ -22,7 +23,7 @@ export default function Title({ clickHandler }) {
               fontWeight: "530",
             }}
           >
-            {title.card}
+            {title.cardTitle}
           </p>
           <p style={{ margin: "1px" }}>
             in list

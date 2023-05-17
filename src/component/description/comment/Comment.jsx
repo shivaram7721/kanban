@@ -36,13 +36,13 @@ function Comment() {
     setComment(comment.filter((ele, index) => index !== id));
   };
 
-  function editComment(id) {
-    const update = comment.find((ele, index) => index === id);
-    setContent2(update);
-    setIsEdit(true);
-    setInputValue(update.text);
-    console.log(content2);
-  }
+  // function editComment(id) {
+  //   const update = comment.find((ele, index) => index === id);
+  //   setContent2(update);
+  //   setIsEdit(true);
+  //   setInputValue(update.text);
+  //   console.log(content2);
+  // }
 
   const updateContent = () => {
     console.log(inputValue);
@@ -92,14 +92,14 @@ function Comment() {
             <>
               {comment.map((ele, index) => (
                 <div key={index} className={style.div4}>
-                  <span>
+                  <span className={style.Innerdiv}>
                     <button
                       className={style.button1}
                       dangerouslySetInnerHTML={{ __html: ele.text }}
                     />
 
                     <ul className={style.div3}>
-                      <li onClick={() => editComment(index)}>Edit</li>
+                      {/* <li onClick={() => editComment(index)}>Edit</li> */}
                       <li onClick={() => deleteComment(index)}>Delete</li>
                     </ul>
                   </span>

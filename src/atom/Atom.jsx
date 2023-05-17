@@ -40,11 +40,6 @@ export const dashBoardData = atom({
   default: [...dashboard],
 });
 
-// export const dialogBox = atom({
-//   key: "dialogBox",
-//   default: false,
-// });
-
 export const TaskList = atom({
   key: "TaskList",
   default: {},
@@ -58,4 +53,9 @@ export const watchNotification = atom({
 export const dialogBox = atom({
   key: "dialogBox",
   default: false,
+});
+
+export const cardComment = atom({
+  key: "cardComment",
+  default: [],
 });
