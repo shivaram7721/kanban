@@ -7,3 +7,22 @@
 ::-webkit-scrollbar {
     display: none;
   }
+
+
+.horizontalContainer::-webkit-scrollbar {
+    display: none;
+}
+  
+  .horizontalContainer {
+    display: flex;
+    overflow-x: auto; 
+  }
+  
+  .listContainer {
+    display: flex;
+  }
+  
+  .listItem {
+    margin-right: 10px;
+  }
+  

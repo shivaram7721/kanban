@@ -8,7 +8,7 @@ let dashboard = [
     listTitle: "completed",
     cards: [
       {
-        cardId: 12345,
+        cardId: uuidv4(),
         cardTitle: "Do something",
         description: "This is description",
         createdAt: new Date().toLocaleString(),

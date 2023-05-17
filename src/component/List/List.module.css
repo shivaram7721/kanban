@@ -8,6 +8,10 @@
   flex-direction: column;
   gap: 0.6rem;
 
+  min-width: 300px;
+  /* background-color: rgb(255, 228, 177); */
+  border-radius: 15px;
+  /* min-width: 350px; */
 }
 
 .titleContainer {
