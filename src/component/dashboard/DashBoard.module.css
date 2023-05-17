@@ -1,13 +1,6 @@
-.mainDiv{
-    padding: 1rem;
-    display: flex;
-    gap: 2rem;
-    overflow: scroll;  
-}
-::-webkit-scrollbar {
-    display: none;
-  }
-
+/* .dashBoardContainer { */
+    /* overflow-x: scroll; */
+/* } */
 
 .horizontalContainer::-webkit-scrollbar {
     display: none;

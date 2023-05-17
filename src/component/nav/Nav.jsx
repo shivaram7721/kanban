@@ -27,18 +27,18 @@ export default function Nav(props) {
         <button className={styles.backGbtn} onClick={props.changeImg}>Change Background <BsFillImageFill/> </button>
       </div>
       <div className={styles.rightSide}>
-        <button className={styles.pBtn}>
-          <BiRocket fontSize='1.4rem' color="white" /> <p>Power-Ups</p>
+        <button className={`${styles.pBtn} ${styles.powerUp}`}>
+          <BiRocket fontSize='1.4rem'  /> <p>Power-Ups</p>
         </button>
-        <button className={styles.pBtn}>
-          <AiFillThunderbolt fontSize='1.4rem' color="white" /> <p>Automation</p>
+        <button className={`${styles.pBtn} ${styles.bolt}`}>
+          <AiFillThunderbolt fontSize='1.4rem' /> <p>Automation</p>
         </button>
         <button className={styles.pBtn}>
           <BsFilter fontSize='1.4rem' color="white" /> <p>Filter</p>
         </button>
         <div class={styles.vl}></div>
-        <CgProfile fontSize='1.6rem' color="white" />
-        <button className={styles.shareBtn}> <RiUserShared2Line /> Share </button>
+        <CgProfile  fontSize='1.6rem' color="white" />
+        <button style={{backgroundColor:'white', marginLeft:'0.8rem'}} className={styles.shareBtn}> <RiUserShared2Line /> Share </button>
         <BsThreeDots fontSize='1.4rem' className={styles.threeDots} color="white"/>
       </div>
     </nav>

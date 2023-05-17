@@ -76,7 +76,7 @@ export default function DashBoard() {
       setImg(0);
     }
   }
-
+        
   function handleDragEnd(result) {
     const { source, destination } = result;
 
@@ -94,18 +94,8 @@ export default function DashBoard() {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div
-        className={styles.dashBoardContainer}
-        style={{
-          backgroundImage: `url(${data[img].image})`,
-          height: "100vh",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transition: "3s",
-        }}
-      >
-        <Nav changeImg={changeImg} />
+      <div className={styles.dashBoardContainer} style={{backgroundImage:`url(${data[img].image})`, height:'100vh', backgroundRepeat:'no-repeat',backgroundSize:'cover',backgroundPosition:'center',transition:'3s'}}>
+        <Nav changeImg={changeImg}/>
         <div className={styles.horizontalContainer}>
           <Droppable droppableId="list" direction="horizontal">
             {(provided) => (
