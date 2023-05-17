@@ -8,8 +8,8 @@ import { useState } from "react";
 import { CardInput } from "../cards/cardInput/CardInput";
 import { CardItem } from "../cards/cardItem/CardItem";
 import { useRecoilState } from "recoil";
-import { addCards, dashBoardData } from "../../atom/Atom";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { dashBoardData } from "../../atom/Atom";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { dialogBox, TaskList } from "../../atom/Atom";
@@ -84,7 +84,7 @@ export function List({ title, handleDelete, index, listData }) {
   }
 
   // functions for card CRUD
-  function handleCardDelete(cardId) {
+  function handleCardDelete() {
     const found = data.find((ele) => ele.listId == listId);
     console.log("found" + found);
     // const temp = [...data[index].cards];
@@ -145,7 +145,13 @@ export function List({ title, handleDelete, index, listData }) {
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {data &&
                 data[index].cards.map((ele, index) => (
-                  <CardItem cardData={ele} index={index} key={index} />
+                  <CardItem
+                    cardData={ele}
+                    index={index}
+                    key={index}
+                    clickHandler={() => clickHandler(ele)}
+                    handleCardDelete={() => handleCardDelete()}
+                  />
                 ))}
               {provided.placeholder}
             </div>
