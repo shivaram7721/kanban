@@ -46,10 +46,6 @@ export function List({ title, handleDelete, index, listData }) {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  function handleTitle(e) {
-    setInput(e.target.value);
-  }
-
   function handleAdd() {
     setShow(!show);
   }
@@ -103,15 +99,16 @@ export function List({ title, handleDelete, index, listData }) {
       <div className={styles.titleContainer}>
         {isEdit ? (
           <span>
-            <input onChange={(e) => setListName(e.target.value)} />
-            <button onClick={handleTitleEdit}>save</button>
+            <input
+              onChange={(e) => setListName(e.target.value)}
+              className={styles.title__input}
+            />
+            <button className={styles.title__saveBtn} onClick={handleTitleEdit}>
+              save
+            </button>
           </span>
         ) : (
-          <p
-            onClick={() => setIsEdit(true)}
-            className={styles.cardTitle}
-            onChange={handleTitle}
-          >
+          <p onClick={() => setIsEdit(true)} className={styles.cardTitle}>
             {title}
           </p>
         )}

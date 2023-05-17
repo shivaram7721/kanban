@@ -23,7 +23,10 @@ export function CardItem({ cardData, index, clickHandler, handleCardDelete }) {
               </Link>
               <span className={styles.icons}>
                 <AiTwotoneEdit />
-                <MdDelete onClick={handleCardDelete} />
+                <MdDelete
+                  style={{ cursor: "pointer" }}
+                  onClick={handleCardDelete}
+                />
               </span>
             </span>
           </div>
