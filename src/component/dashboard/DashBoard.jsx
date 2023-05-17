@@ -6,6 +6,8 @@ import { dashBoardData } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Nav from "../nav/Nav";
+import style from "./DashBoard.module.css";
+import Description from "../description/Description";
 
 export default function DashBoard() {
   const [open, setOpen] = useState(false);
@@ -37,7 +39,7 @@ export default function DashBoard() {
   return (
     <div>
       <Nav />
-      <div style={{ display: "flex", gap: "2rem", padding: "1rem" }}>
+      <div className={style.mainDiv}>
         {listData.map((ele, index) => (
           <List
             key={ele.listId}
@@ -57,6 +59,7 @@ export default function DashBoard() {
           <AddListButton onClick={handleClick} />
         )}
       </div>
+      <Description />
     </div>
   );
 }

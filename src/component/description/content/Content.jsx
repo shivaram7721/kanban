@@ -30,18 +30,23 @@ export default function Content() {
       </span>
 
       {description ? (
-        <button
-          onClick={() => setDescription(false)}
-          style={{
-            padding: "0.8rem 1.5rem 1.5rem",
-            width: "75%",
-            display: "flex",
-            justifyContent: "flex-start",
-            margin: "0 0 1rem 3rem",
-          }}
-        >
-          {showContent ? "edit" : "Add a more detailed description...."}
-        </button>
+        <div onClick={() => setDescription(false)}>
+          {showContent ? (
+            <button>edit </button>
+          ) : (
+            <button
+              style={{
+                padding: "0.8rem 1.5rem 1rem",
+                width: "75%",
+                display: "flex",
+                justifyContent: "flex-start",
+                margin: "0 0 1rem 3rem",
+              }}
+            >
+              Add a more detailed description....
+            </button>
+          )}
+        </div>
       ) : (
         <>
           <Editor

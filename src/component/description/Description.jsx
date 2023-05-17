@@ -15,13 +15,14 @@ export default function Description() {
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const navigate = useNavigate();
 
-  const changeHandler = () => {
+  const closeDialogHandle = () => {
     setIsDialog(false);
     navigate("/");
   };
-
+  // console.log(isDialog);
   return (
     <div>
+      {/* <button onClick={() => setIsDialog(true)}>Click me</button> */}
       <div className={classes.container}>
         <Dialog
           open={isDialog}
@@ -29,14 +30,15 @@ export default function Description() {
             sx: {
               maxWidth: "70vw",
               width: 800,
-              height: "90vh",
+              minHeight: "90vh",
               backgroundColor: "whitesmoke",
+              // marginBottom: "3rem",
             },
           }}
         >
           <DialogContent>
             <div className={classes.DialogContent}>
-              <Title clickHandler={changeHandler} />
+              <Title clickHandler={closeDialogHandle} />
               <div className={classes.container2}>
                 <p style={{ margin: 0, paddingBottom: "0.5rem" }}>
                   Notifications

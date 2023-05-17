@@ -1,0 +1,9 @@
+.mainDiv{
+    padding: 1rem;
+    display: flex;
+    gap: 2rem;
+    overflow: scroll;  
+}
+::-webkit-scrollbar {
+    display: none;
+  }

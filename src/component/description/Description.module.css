@@ -1,8 +1,9 @@
 .DialogContent{
     display: flex;
     flex-direction: column;
-    height: 100%;
     color: black;
+    padding-bottom: 3rem;
+    overflow: scroll;
 }
 .container2 {
     margin: 2rem 2.8rem;
