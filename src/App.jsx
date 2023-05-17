@@ -6,9 +6,11 @@ import Description from "./component/description/Description";
 
 function App() {
   return (
+    <div>
     <Routes>
       <Route path={"/"} element={<DashBoard />}></Route>
     </Routes>
+    </div>
   );
 }
 
