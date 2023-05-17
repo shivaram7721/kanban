@@ -1,7 +1,7 @@
 import styles from "./CardItem.module.css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { addCards } from "../../../atom/Atom";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { dialogBox, TaskList } from "../../../atom/Atom";
 import { Link } from "react-router-dom";
 import { AiTwotoneEdit } from "react-icons/ai";
@@ -20,39 +20,26 @@ export function CardItem({ cardData, index, handleCardDelete }) {
   }
 
   return (
-    <div className={styles.card}>
-      <Droppable droppableId="todo" type="cards">
+    <div>
+      <Draggable draggableId={cardId} key={cardId} index={index}>
         {(provided) => (
-          <div {...provided.droppableProps} ref={provided.innerRef}>
-            <Draggable draggableId={cardId} key={cardId} index={index}>
-              {(provided) => (
-                <div
-                  {...provided.dragHandleProps}
-                  {...provided.draggableProps}
-                  ref={provided.innerRef}
-                >
-                  <span className={styles.containerCard}>
-                    <Link to={`?id=${cardId}`} className={styles.link}>
-                      <p
-                      // key={card.id}
-                      // onClick={() => clickHandler(card)}
-                      >
-                        {cardTitle}
-                      </p>
-                    </Link>
-                    <span className={styles.icons}>
-                      <AiTwotoneEdit />
-                      <MdDelete onClick={handleCardDelete} />
-                    </span>
-                  </span>
-                </div>
-              )}
-            </Draggable>
-
-            {provided.placeholder}
+          <div
+            {...provided.dragHandleProps}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+          >
+            <Link to={`?id=${cardId}`} className={styles.link}>
+              <p
+                className={styles.card}
+                // key={card.id}
+                // onClick={() => clickHandler(card)}
+              >
+                {cardTitle}
+              </p>
+            </Link>
           </div>
         )}
-      </Droppable>
+      </Draggable>
     </div>
   );
 }
