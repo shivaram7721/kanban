@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./List.module.css";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoMdAdd } from "react-icons/io";
@@ -5,19 +6,18 @@ import { TbTemplate } from "react-icons/tb";
 import { Tooltip } from "@mui/material";
 import { useState } from "react";
 import { CardInput } from "../cards/cardInput/CardInput";
-import { CardList } from "../cards/cardList/CardList";
+import { CardItem } from "../cards/cardItem/CardItem";
 import { useRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../atom/Atom";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import React from "react";
 
-export function List({ title, handleDelete, index }) {
+export function List({ title, handleDelete, index, listData }) {
+  const { listId } = listData;
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
 
-  const [cards, setcards] = useRecoilState(addCards);
   const [data, setData] = useRecoilState(dashBoardData);
   const [listName, setListName] = useState("");
 
@@ -43,29 +43,26 @@ export function List({ title, handleDelete, index }) {
   }
 
   function handleDrag(result) {
-    console.log(result);
-
     const { source, destination } = result;
 
     if (!destination) {
       return;
     }
 
-    if (
-      source.destinationId === destination.destinationId &&
-      source.index === destination.index
-    ) {
-      return;
-    }
+    const sourceList = data[index].cards;
 
-    const newCards = Array.from(cards);
-    const [reOrderedCards] = newCards.splice(result.source.index, 1);
-    newCards.splice(result.destination.index, 0, reOrderedCards);
+    const newSourceCards = Array.from(sourceList);
+    const [reorderedCard] = newSourceCards.splice(source.index, 1);
+    newSourceCards.splice(destination.index, 0, reorderedCard);
 
-    setcards(newCards);
+    const updated = { ...data[index], cards: newSourceCards };
+    const final = [...data];
+    final[index] = updated;
+
+    setData(final);
   }
 
-  function handleTitleSave() {
+  function handleTitleEdit() {
     const temp = { ...data[index] };
     const update = [...data];
     temp.listTitle = listName;
@@ -74,14 +71,24 @@ export function List({ title, handleDelete, index }) {
     setIsEdit(false);
   }
 
+  // functions for card CRUD
+  function handleCardDelete(cardId) {
+    const found = data.find((ele) => ele.listId == listId);
+    console.log("found" + found);
+    // const temp = [...data[index].cards];
+    // console.log("index is " + index);
+    // const filteredData = temp.filter((ele) => ele.cardId != cardId);
+    // setData(filteredData);
+  }
+
   return (
     <div className={styles.cardContainer}>
-      <DragDropContext onDragEnd={handleDrag}>
+      {/* <DragDropContext onDragEnd={handleDrag}> */}
         <div className={styles.titleContainer}>
           {isEdit ? (
             <span>
               <input onChange={(e) => setListName(e.target.value)} />
-              <button onClick={handleTitleSave}>save</button>
+              <button onClick={handleTitleEdit}>save</button>
             </span>
           ) : (
             <p
@@ -93,41 +100,45 @@ export function List({ title, handleDelete, index }) {
             </p>
           )}
 
-          <div>
-            <HiOutlineDotsHorizontal
-              className={styles.dotsIcon}
-              aria-describedby={id}
-              onClick={handleClick}
-            />
-
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-            >
-              <Typography
-                onClick={handleDelete}
-                sx={{ p: 1, width: "10rem", cursor: "pointer" }}
-              >
-                Delete List
-              </Typography>
-            </Popover>
-          </div>
-        </div>
-
         <div>
-          {/* map here for card data*/}
-          {data &&
-            data[0].cards.map((ele) => (
-              // <CardList  />
-              <p>{ele.cardTitle}</p>
-            ))}
+          <HiOutlineDotsHorizontal
+            className={styles.dotsIcon}
+            aria-describedby={id}
+            onClick={handleClick}
+          />
+
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Typography
+              onClick={handleDelete}
+              sx={{ p: 1, width: "10rem", cursor: "pointer" }}
+            >
+              Delete List
+            </Typography>
+          </Popover>
         </div>
+      </div>
+
+      <DragDropContext onDragEnd={handleDrag}>
+        <Droppable droppableId={`list-${index}`} type="cards">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {data &&
+                data[index].cards.map((ele, index) => (
+                  <CardItem cardData={ele} index={index} key={index} />
+                ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </DragDropContext>
 
       {show ? (
@@ -143,7 +154,7 @@ export function List({ title, handleDelete, index }) {
           </Tooltip>
         </div>
       ) : (
-        <CardInput show={handleAdd} />
+        <CardInput show={handleAdd} index={index} />
       )}
     </div>
   );

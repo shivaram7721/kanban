@@ -1,27 +1,29 @@
+/* eslint-disable react/prop-types */
 import styles from "./CardInput.module.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+// import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../../atom/Atom";
 import { v4 as uuidv4 } from "uuid";
 
-export function CardInput({ show }) {
-  const [card, setCard] = useRecoilState(addCards);
+export function CardInput({ show, index }) {
+  // const [card, setCard] = useRecoilState(addCards);
   const [cardData, setCardData] = useRecoilState(dashBoardData);
   const [input, setInput] = useState("");
-  const [input3, setInput3] = useState([]);
+  // const [input3, setInput3] = useState([]);
 
-  console.log(card);
+  // console.log(card);
 
   function handleChange(e) {
     setInput(e.target.value);
   }
 
   function handleAddCard() {
-    const temp = [...cardData[0].cards];
+    const temp = [...cardData[index].cards];
+    console.log("index is " + index);
     const newCard = {
       cardId: uuidv4(),
       cardTitle: input,
@@ -35,34 +37,14 @@ export function CardInput({ show }) {
       ],
     };
     temp.push(newCard);
-
-    // console.log(temp);
-    const updated = [...cardData];
-    updated[0].cards = temp;
-    // setCardData(updated);
-    setInput3(updated);
-    console.log(input3);
-    // console.log(data);
+    const updated = { ...cardData[index], cards: temp };
+    const final = [...cardData];
+    final[index] = updated;
+    console.log(updated);
+    setCardData(final);
+    setInput("");
+    show(!show)
   }
-
-  // function handleAddCard() {
-  //   const cardInput = input;
-  //   // setInput(cardInput);
-
-  //   console.log(cardInput);
-  //   if (cardInput) {
-  //     setCard([
-  //       ...card,
-  //       {
-  //         id: uuidv4(),
-  //         title: "todo",
-  //         card: input,
-  //       },
-  //     ]);
-  //   }
-  //   setInput("");
-  //   show(!show);
-  // }
 
   return (
     <div className={styles.container}>
@@ -73,7 +55,7 @@ export function CardInput({ show }) {
             placeholder="add card"
             onChange={handleChange}
             value={input}
-            sx={{ width: "18vw" }}
+            sx={{ width: "18vw", backgroundColor: "white" }}
             size="small"
             multiline
           />
@@ -93,9 +75,9 @@ export function CardInput({ show }) {
               Add card
             </Button>
             {/* <RxCross2 style={{fontSize:"1rem"}}/> */}
-            <CloseIcon />
+            <CloseIcon onClick={show} />
           </div>
-          <HiOutlineDotsHorizontal />
+          {/* <HiOutlineDotsHorizontal /> */}
         </div>
       </div>
     </div>

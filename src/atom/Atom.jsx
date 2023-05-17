@@ -1,15 +1,17 @@
+/* eslint-disable react-refresh/only-export-components */
 import { atom } from "recoil";
+import { v4 as uuidv4 } from "uuid";
 
 let dashboard = [
   {
-    listId: 123,
+    listId: uuidv4(),
     listTitle: "completed",
     cards: [
       {
-        cardId: 12345,
+        cardId: uuidv4(),
         cardTitle: "Do something",
         description: "This is description",
-        createdAt: "2pm",
+        createdAt: new Date().toLocaleString(),
         activity: [
           {
             changes: "xyz added this card to todo",
@@ -18,7 +20,7 @@ let dashboard = [
         ],
       },
     ],
-    createdAt: "2pm",
+    createdAt: new Date().toLocaleString(),
     activity: [
       {
         changes: "xyz added this card to todo",
@@ -38,12 +40,22 @@ export const dashBoardData = atom({
   default: [...dashboard],
 });
 
-export const dialogBox = atom({
-  key: "dialogBox",
-  default: false,
-});
+// export const dialogBox = atom({
+//   key: "dialogBox",
+//   default: false,
+// });
 
 export const TaskList = atom({
   key: "TaskList",
   default: {},
+});
+
+export const watchNotification = atom({
+  key: "watchNotification",
+  default: true,
+});
+
+export const dialogBox = atom({
+  key: "dialogBox",
+  default: false,
 });
