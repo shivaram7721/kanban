@@ -12,7 +12,7 @@ import { dashBoardData } from "../../atom/Atom";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { dialogBox, TaskList } from "../../atom/Atom";
+import { dialogBox, TaskList, listIndex } from "../../atom/Atom";
 import { useSetRecoilState } from "recoil";
 
 export function List({ title, handleDelete, index, listData }) {
@@ -21,20 +21,21 @@ export function List({ title, handleDelete, index, listData }) {
   const [isEdit, setIsEdit] = useState(false);
 
   const [data, setData] = useRecoilState(dashBoardData);
+
+  console.log(data);
   const [listName, setListName] = useState("");
 
-  const [isDialog, setIsDialog] = useRecoilState(dialogBox);
+  const setIsDialog = useSetRecoilState(dialogBox);
   const setCardDetail = useSetRecoilState(TaskList);
+  const setIndex = useSetRecoilState(listIndex);
 
-  function clickHandler(data) {
+  function clickHandler(data1) {
     setIsDialog(true);
-    setCardDetail(data);
-    console.log(data);
-    console.log(isDialog);
+    setCardDetail(data1);
+    setIndex(index);
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
-  console.log(data);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -45,10 +46,6 @@ export function List({ title, handleDelete, index, listData }) {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
-  function handleTitle(e) {
-    setInput(e.target.value);
-  }
 
   function handleAdd() {
     setShow(!show);
@@ -106,7 +103,7 @@ export function List({ title, handleDelete, index, listData }) {
           <p
             onClick={() => setIsEdit(true)}
             className={styles.cardTitle}
-            onChange={handleTitle}
+            // onChange={handleTitle}
           >
             {title}
           </p>

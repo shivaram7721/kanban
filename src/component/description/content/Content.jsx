@@ -7,18 +7,24 @@ import { TaskList } from "../../../atom/Atom";
 
 export default function Content() {
   const [description, setDescription] = useState(true);
-  const [content, setContent] = useState("");
-  const [showContent, setShowContent] = useState(false);
-  const [updateList, SetUpdateList] = useRecoilState(TaskList);
-
-  console.log(updateList);
+  // const [showContent, setShowContent] = useState(false);
+  const [updateList, setUpdateList] = useRecoilState(TaskList);
+  const [content, setContent] = useState(updateList.description);
 
   const handleEditorChange = (content) => {
     setContent(content);
   };
+
+  console.log(updateList);
+  console.log("my description" + content);
+
   const handleContent = () => {
-    setShowContent(true);
+    // setShowContent(true);
     setDescription(true);
+    const DescriptionData = { ...updateList };
+    DescriptionData.description = content;
+    setUpdateList(DescriptionData);
+    // console.log(updateList);
   };
   return (
     <div>
@@ -30,9 +36,9 @@ export default function Content() {
       </span>
 
       {description ? (
-        <div onClick={() => setDescription(false)}>
-          {showContent ? (
-            <button>edit </button>
+        <div onClick={() => setDescription(false)} className={style.contentBtn}>
+          {content !== "" ? (
+            <button className={style.btn3}>edit </button>
           ) : (
             <button
               style={{
@@ -68,7 +74,7 @@ export default function Content() {
           </span>
         </>
       )}
-      {showContent ? (
+      {content !== "" ? (
         <div
           style={{ paddingLeft: "3rem" }}
           dangerouslySetInnerHTML={{ __html: content }}

@@ -27,7 +27,7 @@ export function CardInput({ show, index }) {
     const newCard = {
       cardId: uuidv4(),
       cardTitle: input,
-      description: "This is dummy description",
+      description: "",
       createdAt: new Date().toLocaleString(),
       activity: [
         {
@@ -43,7 +43,7 @@ export function CardInput({ show, index }) {
     console.log(updated);
     setCardData(final);
     setInput("");
-    show(!show)
+    show(!show);
   }
 
   return (

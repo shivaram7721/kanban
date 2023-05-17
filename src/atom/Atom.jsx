@@ -10,7 +10,7 @@ let dashboard = [
       {
         cardId: uuidv4(),
         cardTitle: "Do something",
-        description: "This is description",
+        description: "",
         createdAt: new Date().toLocaleString(),
         activity: [
           {
@@ -58,4 +58,14 @@ export const dialogBox = atom({
 export const cardComment = atom({
   key: "cardComment",
   default: [],
+});
+
+export const isCardDetail = atom({
+  key: "isCardDetail",
+  default: true,
+});
+
+export const listIndex = atom({
+  key: "listIndex",
+  default: 0,
 });
