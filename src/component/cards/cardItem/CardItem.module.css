@@ -8,6 +8,7 @@
   color: black;
   color: black;
   text-decoration: none;
+  z-index: 2;
   /* display: flex;
   justify-content: space-between;
   gap: 0.5rem; */
@@ -21,7 +22,11 @@
 .containerCard{
   display: flex;
   justify-content: space-between;
-  
+  width: 17rem;
+}
+
+.card:hover{
+  background-color: #f1f2f4;
 }
 .icons{
   display: flex;

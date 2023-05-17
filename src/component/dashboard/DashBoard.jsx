@@ -3,12 +3,12 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AddListButton from "../button/addListButton/AddListButton";
 import { List } from "../List/List";
 import styles from "./DashBoard.module.css";
-import Description from "../description/Description";
 import TitleInput from "../list/titleInput/TitleInput";
 import { dashBoardData } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Nav from "../nav/Nav";
+import Description from "../description/Description";
 
 const data = [
   {
@@ -76,6 +76,7 @@ export default function DashBoard() {
       setImg(0);
     }
   }
+
   function handleDragEnd(result) {
     const { source, destination } = result;
 
@@ -150,10 +151,9 @@ export default function DashBoard() {
           ) : (
             <AddListButton onClick={handleClick} />
           )}
-
-          <Description />
         </div>
       </div>
+      <Description />
     </DragDropContext>
   );
 }
