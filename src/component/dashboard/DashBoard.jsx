@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AddListButton from "../button/addListButton/AddListButton";
 import { List } from "../List/List";
+import styles from "./DashBoard.module.css";
+import Description from "../description/Description";
 import TitleInput from "../list/titleInput/TitleInput";
 import { dashBoardData } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
@@ -34,29 +37,75 @@ export default function DashBoard() {
     setListData(tempData);
     setOpen(false);
   }
-  return (
-    <div>
-      <Nav />
-      <div style={{ display: "flex", gap: "2rem", padding: "1rem" }}>
-        {listData.map((ele, index) => (
-          <List
-            key={ele.listId}
-            title={ele.listTitle}
-            handleDelete={() => handleDeleteList(ele.listId)}
-            index={index}
-            listData={ele}
-          />
-        ))}
 
-        {open ? (
-          <TitleInput
-            onChange={(e) => setListName(e.target.value)}
-            onClick={handleCreateList}
-          />
-        ) : (
-          <AddListButton onClick={handleClick} />
-        )}
+  function handleDragEnd(result) {
+    const { source, destination } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    const newListData = Array.from(listData);
+    const [draggedList] = newListData.splice(source.index, 1);
+    newListData.splice(destination.index, 0, draggedList);
+
+    setListData(newListData);
+    console.log(newListData);
+  }
+
+  return (
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <div className={styles.dashBoardContainer}>
+        <Nav />
+        <div className={styles.horizontalContainer}>
+          <Droppable droppableId="list" direction="horizontal">
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className={styles.listContainer}
+              >
+                {listData.map((ele, index) => (
+                  <Draggable
+                    key={ele.listId}
+                    draggableId={ele.listId}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className={styles.listItem}
+                      >
+                        <List
+                          key={ele.listId}
+                          title={ele.listTitle}
+                          handleDelete={() => handleDeleteList(ele.listId)}
+                          index={index}
+                          listData={ele}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+
+          {open ? (
+            <TitleInput
+              onChange={(e) => setListName(e.target.value)}
+              onClick={handleCreateList}
+            />
+          ) : (
+            <AddListButton onClick={handleClick} />
+          )}
+
+          <Description />
+        </div>
       </div>
-    </div>
+    </DragDropContext>
   );
 }
