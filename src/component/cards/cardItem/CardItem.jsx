@@ -32,7 +32,7 @@ export function CardItem({ cardData, index, handleCardDelete }) {
               <p
                 className={styles.card}
                 // key={card.id}
-                // onClick={() => clickHandler(card)}
+                // onClick={handleCardDelete}
               >
                 {cardTitle}
               </p>

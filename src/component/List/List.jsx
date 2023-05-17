@@ -22,7 +22,7 @@ export function List({ title, handleDelete, index, listData }) {
   const [listName, setListName] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
-  console.log(data);
+  // console.log(data);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,6 +63,9 @@ export function List({ title, handleDelete, index, listData }) {
   }
 
   function handleTitleEdit() {
+    if (!listName) {
+      return;
+    }
     const temp = { ...data[index] };
     const update = [...data];
     temp.listTitle = listName;
@@ -73,32 +76,33 @@ export function List({ title, handleDelete, index, listData }) {
 
   // functions for card CRUD
   function handleCardDelete(cardId) {
-    const found = data.find((ele) => ele.listId == listId);
-    console.log("found" + found);
-    // const temp = [...data[index].cards];
-    // console.log("index is " + index);
-    // const filteredData = temp.filter((ele) => ele.cardId != cardId);
-    // setData(filteredData);
+    const tempList = { ...data[index] };
+    const x = tempList.cards;
+    const filteredCardData = x.filter((ele, idx) => ele.cardId != cardId);
+    tempList.cards = filteredCardData;
+    const finalData = [...data];
+    finalData[index] = tempList;
+    setData(finalData);
   }
 
   return (
     <div className={styles.cardContainer}>
       {/* <DragDropContext onDragEnd={handleDrag}> */}
-        <div className={styles.titleContainer}>
-          {isEdit ? (
-            <span>
-              <input onChange={(e) => setListName(e.target.value)} />
-              <button onClick={handleTitleEdit}>save</button>
-            </span>
-          ) : (
-            <p
-              onClick={() => setIsEdit(true)}
-              className={styles.cardTitle}
-              onChange={handleTitle}
-            >
-              {title}
-            </p>
-          )}
+      <div className={styles.titleContainer}>
+        {isEdit ? (
+          <span>
+            <input onChange={(e) => setListName(e.target.value)} />
+            <button onClick={handleTitleEdit}>save</button>
+          </span>
+        ) : (
+          <p
+            onClick={() => setIsEdit(true)}
+            className={styles.cardTitle}
+            onChange={handleTitle}
+          >
+            {title}
+          </p>
+        )}
 
         <div>
           <HiOutlineDotsHorizontal
@@ -133,7 +137,12 @@ export function List({ title, handleDelete, index, listData }) {
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {data &&
                 data[index].cards.map((ele, index) => (
-                  <CardItem cardData={ele} index={index} key={index} />
+                  <CardItem
+                    cardData={ele}
+                    index={index}
+                    key={index}
+                    handleCardDelete={() => handleCardDelete(ele.cardId)}
+                  />
                 ))}
               {provided.placeholder}
             </div>

@@ -76,44 +76,20 @@ export default function DashBoard() {
       setImg(0);
     }
   }
+  function handleDragEnd(result) {
+    const { source, destination } = result;
 
-  // return (
-  //   <div style={{backgroundImage:`url(${data[img].image})`, height:'100vh', backgroundRepeat:'no-repeat',backgroundSize:'cover',backgroundPosition:'center',transition:'3s'}}>
-  //     <Nav changeImg={changeImg} />
-  //     <div style={{ display: "flex", gap: "2rem" }}>
-  //       {listData.map((ele, index) => (
-  //         <List
-  //           title={ele.listTitle}
-  //           handleDelete={() => handleDeleteList(index)}
-  //           index={index}
-  //         />
-  //       ))}
+    if (!destination) {
+      return;
+    }
 
-  //       {open ? (
-  //         <TitleInput
-  //           onChange={(e) => setListName(e.target.value)}
-  //           onClick={handleCreateList}
-  //         />
-  //       ) : (
-  //         <AddListButton onClick={handleClick} />
-  //       )}
-  //       {/* <Route path */}
-  //       <Description />
+    const newListData = Array.from(listData);
+    const [draggedList] = newListData.splice(source.index, 1);
+    newListData.splice(destination.index, 0, draggedList);
 
-  // function handleDragEnd(result) {
-  //   const { source, destination } = result;
-
-  //   if (!destination) {
-  //     return;
-  //   }
-
-  //   const newListData = Array.from(listData);
-  //   const [draggedList] = newListData.splice(source.index, 1);
-  //   newListData.splice(destination.index, 0, draggedList);
-
-  //   setListData(newListData);
-  //   console.log(newListData);
-  // }
+    setListData(newListData);
+    console.log(newListData);
+  }
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
