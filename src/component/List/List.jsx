@@ -9,7 +9,7 @@ import { CardInput } from "../cards/cardInput/CardInput";
 import { CardItem } from "../cards/cardItem/CardItem";
 import { useRecoilState } from "recoil";
 import { addCards, dashBoardData } from "../../atom/Atom";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 
@@ -18,7 +18,6 @@ export function List({ title, handleDelete, index, listData }) {
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
 
-  const [cards, setcards] = useRecoilState(addCards);
   const [data, setData] = useRecoilState(dashBoardData);
   const [listName, setListName] = useState("");
 
@@ -44,26 +43,23 @@ export function List({ title, handleDelete, index, listData }) {
   }
 
   function handleDrag(result) {
-    console.log(result);
-
     const { source, destination } = result;
 
     if (!destination) {
       return;
     }
 
-    if (
-      source.destinationId === destination.destinationId &&
-      source.index === destination.index
-    ) {
-      return;
-    }
+    const sourceList = data[index].cards;
 
-    const newCards = Array.from(cards);
-    const [reOrderedCards] = newCards.splice(result.source.index, 1);
-    newCards.splice(result.destination.index, 0, reOrderedCards);
+    const newSourceCards = Array.from(sourceList);
+    const [reorderedCard] = newSourceCards.splice(source.index, 1);
+    newSourceCards.splice(destination.index, 0, reorderedCard);
 
-    setcards(newCards);
+    const updated = { ...data[index], cards: newSourceCards };
+    const final = [...data];
+    final[index] = updated;
+
+    setData(final);
   }
 
   function handleTitleEdit() {
@@ -87,7 +83,7 @@ export function List({ title, handleDelete, index, listData }) {
 
   return (
     <div className={styles.cardContainer}>
-      <DragDropContext onDragEnd={handleDrag}>
+      {/* <DragDropContext onDragEnd={handleDrag}> */}
         <div className={styles.titleContainer}>
           {isEdit ? (
             <span>
@@ -104,45 +100,45 @@ export function List({ title, handleDelete, index, listData }) {
             </p>
           )}
 
-          <div>
-            <HiOutlineDotsHorizontal
-              className={styles.dotsIcon}
-              aria-describedby={id}
-              onClick={handleClick}
-            />
-
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-            >
-              <Typography
-                onClick={handleDelete}
-                sx={{ p: 1, width: "10rem", cursor: "pointer" }}
-              >
-                Delete List
-              </Typography>
-            </Popover>
-          </div>
-        </div>
-
         <div>
-          {/* map here for card data*/}
-          {data &&
-            data[index].cards.map((ele, index) => (
-              <CardItem
-                cardData={ele}
-                index={index}
-                key={ele.cardId}
-                handleCardDelete={() => handleCardDelete(ele.cardId)}
-              />
-            ))}
+          <HiOutlineDotsHorizontal
+            className={styles.dotsIcon}
+            aria-describedby={id}
+            onClick={handleClick}
+          />
+
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Typography
+              onClick={handleDelete}
+              sx={{ p: 1, width: "10rem", cursor: "pointer" }}
+            >
+              Delete List
+            </Typography>
+          </Popover>
         </div>
+      </div>
+
+      <DragDropContext onDragEnd={handleDrag}>
+        <Droppable droppableId={`list-${index}`} type="cards">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {data &&
+                data[index].cards.map((ele, index) => (
+                  <CardItem cardData={ele} index={index} key={index} />
+                ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </DragDropContext>
 
       {show ? (
