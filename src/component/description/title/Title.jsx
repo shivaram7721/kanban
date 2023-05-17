@@ -2,11 +2,13 @@
 import { MdSubtitles } from "react-icons/md";
 import { ImCross } from "react-icons/im";
 import style from "./Title.module.css";
-import { TaskList } from "../../../atom/Atom";
+import { TaskList, dashBoardData, listIndex } from "../../../atom/Atom";
 import { useRecoilValue } from "recoil";
 
 export default function Title({ clickHandler }) {
   const title = useRecoilValue(TaskList);
+  const cardData = useRecoilValue(dashBoardData);
+  const index = useRecoilValue(listIndex);
 
   console.log(title);
   return (
@@ -28,7 +30,7 @@ export default function Title({ clickHandler }) {
           <p style={{ margin: "1px" }}>
             in list
             <span style={{ textDecoration: "underline", marginLeft: "5px" }}>
-              To Do
+              {cardData[index].listTitle}
             </span>
           </p>
         </span>

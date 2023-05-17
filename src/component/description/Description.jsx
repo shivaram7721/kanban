@@ -6,23 +6,31 @@ import CheckBoxTwoToneIcon from "@mui/icons-material/CheckBoxTwoTone";
 import Title from "./title/Title";
 import Content from "./content/Content";
 import Activity from "./acitivity/Activity";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import Comment from "./comment/Comment";
+import { isCardDetail, dashBoardData, listIndex } from "../../atom/Atom";
+import { CgProfile } from "react-icons/cg";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
+  const [isComment, setComment] = useRecoilState(isCardDetail);
+  const cardData = useRecoilValue(dashBoardData);
+  const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
 
   const closeDialogHandle = () => {
     setIsDialog(false);
     navigate("/");
   };
-  // console.log(isDialog);
+
+  const showCardDetail = () => {
+    setComment(!isComment);
+  };
+
   return (
     <div>
-      {/* <button onClick={() => setIsDialog(true)}>Click me</button> */}
       <div className={classes.container}>
         <Dialog
           open={isDialog}
@@ -79,11 +87,25 @@ export default function Description() {
                 <Content />
               </span>
               <span>
-                <Activity />
+                <Activity
+                  showCardDetail={showCardDetail}
+                  isComment={isComment}
+                />
               </span>
               <span>
                 <Comment />
               </span>
+              {isComment ? (
+                ""
+              ) : (
+                <span className={classes.div2}>
+                  <CgProfile className={classes.icons} />
+                  <span className={classes.container5}>
+                    <p>user added this card to {cardData[index].listTitle}</p>
+                    {cardData[index].createdAt}
+                  </span>
+                </span>
+              )}
             </div>
           </DialogContent>
         </Dialog>
