@@ -1,15 +1,12 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
-
 import DashBoard from "./component/dashboard/DashBoard";
+import "./App.css";
 
 function App() {
   return (
-    <div>
     <Routes>
       <Route path={"/"} element={<DashBoard />}></Route>
     </Routes>
-    </div>
   );
 }
 

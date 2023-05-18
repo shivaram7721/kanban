@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 let dashboard = [
   {
-    listId: uuidv4(),
+    listId: `list-${uuidv4()}`,
     listTitle: "completed",
     cards: [
       {

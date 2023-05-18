@@ -15,11 +15,9 @@ import Typography from "@mui/material/Typography";
 import { dialogBox, TaskList, listIndex } from "../../atom/Atom";
 import { useSetRecoilState } from "recoil";
 
-export function List({ title, handleDelete, index, listData }) {
-  const { listId } = listData;
+export function List({ title, handleDelete, index }) {
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-
   const [data, setData] = useRecoilState(dashBoardData);
 
   console.log(data);
@@ -72,6 +70,9 @@ export function List({ title, handleDelete, index, listData }) {
   }
 
   function handleTitleEdit() {
+    if (!listName) {
+      return;
+    }
     const temp = { ...data[index] };
     const update = [...data];
     temp.listTitle = listName;
@@ -81,13 +82,14 @@ export function List({ title, handleDelete, index, listData }) {
   }
 
   // functions for card CRUD
-  function handleCardDelete() {
-    const found = data.find((ele) => ele.listId == listId);
-    console.log("found" + found);
-    // const temp = [...data[index].cards];
-    // console.log("index is " + index);
-    // const filteredData = temp.filter((ele) => ele.cardId != cardId);
-    // setData(filteredData);
+  function handleCardDelete(cardId) {
+    const tempList = { ...data[index] };
+    const x = tempList.cards;
+    const filteredCardData = x.filter((ele, idx) => ele.cardId != cardId);
+    tempList.cards = filteredCardData;
+    const finalData = [...data];
+    finalData[index] = tempList;
+    setData(finalData);
   }
 
   return (
@@ -96,8 +98,13 @@ export function List({ title, handleDelete, index, listData }) {
       <div className={styles.titleContainer}>
         {isEdit ? (
           <span>
-            <input onChange={(e) => setListName(e.target.value)} />
-            <button onClick={handleTitleEdit}>save</button>
+            <input
+              onChange={(e) => setListName(e.target.value)}
+              className={styles.title__input}
+            />
+            <button className={styles.title__saveBtn} onClick={handleTitleEdit}>
+              save
+            </button>
           </span>
         ) : (
           <p
@@ -141,13 +148,14 @@ export function List({ title, handleDelete, index, listData }) {
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {data &&
-                data[index].cards.map((ele, index) => (
+                data[index].cards.map((ele, idx) => (
                   <CardItem
                     cardData={ele}
-                    index={index}
-                    key={index}
+                    index={idx}
+                    key={idx}
                     clickHandler={() => clickHandler(ele)}
-                    handleCardDelete={() => handleCardDelete()}
+                    handleCardDelete={() => handleCardDelete(ele.cardId)}
+                    listIndex={index}
                   />
                 ))}
               {provided.placeholder}
