@@ -4,13 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 
 let dashboard = [
   {
-    listId: uuidv4(),
+    listId: `list-${uuidv4()}`,
     listTitle: "completed",
     cards: [
       {
         cardId: uuidv4(),
         cardTitle: "Do something",
-        description: "This is description",
+        description: "",
         createdAt: new Date().toLocaleString(),
         activity: [
           {
@@ -60,7 +60,12 @@ export const cardComment = atom({
   default: [],
 });
 
-export const currCardTitle = atom({
-  key: "currCardTitle",
-  default: "",
+export const isCardDetail = atom({
+  key: "isCardDetail",
+  default: true,
+});
+
+export const listIndex = atom({
+  key: "listIndex",
+  default: 0,
 });

@@ -12,22 +12,25 @@ import { dashBoardData } from "../../atom/Atom";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { dialogBox, TaskList, currCardTitle } from "../../atom/Atom";
+import { dialogBox, TaskList, listIndex } from "../../atom/Atom";
 import { useSetRecoilState } from "recoil";
 
 export function List({ title, handleDelete, index }) {
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [data, setData] = useRecoilState(dashBoardData);
-  const [listName, setListName] = useState("");
-  const [isDialog, setIsDialog] = useRecoilState(dialogBox);
-  const setCardDetail = useSetRecoilState(TaskList);
 
-  function clickHandler(data) {
+  console.log(data);
+  const [listName, setListName] = useState("");
+
+  const setIsDialog = useSetRecoilState(dialogBox);
+  const setCardDetail = useSetRecoilState(TaskList);
+  const setIndex = useSetRecoilState(listIndex);
+
+  function clickHandler(data1) {
     setIsDialog(true);
-    setCardDetail(data);
-    console.log(data);
-    console.log(isDialog);
+    setCardDetail(data1);
+    setIndex(index);
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -104,7 +107,11 @@ export function List({ title, handleDelete, index }) {
             </button>
           </span>
         ) : (
-          <p onClick={() => setIsEdit(true)} className={styles.cardTitle}>
+          <p
+            onClick={() => setIsEdit(true)}
+            className={styles.cardTitle}
+            // onChange={handleTitle}
+          >
             {title}
           </p>
         )}
