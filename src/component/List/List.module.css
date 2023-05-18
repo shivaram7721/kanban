@@ -92,3 +92,8 @@
 .cardContentEditor:focus {
   border-color: #ccc;
 }
+
+/* Add these styles to your CSS file */
+.placeholderItem {
+  min-height: 20px; /* Set the desired minimum height */
+}

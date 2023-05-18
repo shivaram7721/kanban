@@ -88,6 +88,7 @@ export default function DashBoard() {
     
     if (result.type === "cards") {
       const { source, destination } = result;
+      console.log(result)
 
       if (!destination) {
         return;
@@ -154,7 +155,7 @@ export default function DashBoard() {
   }
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
+    <DragDropContext onDragEnd={handleDragEnd} Combine={true}>
       <div
         className={styles.dashBoardContainer}
         style={{
@@ -168,7 +169,7 @@ export default function DashBoard() {
       >
         <Nav changeImg={changeImg} />
         <div className={styles.horizontalContainer}>
-          <Droppable droppableId="list" direction="horizontal" type="list">
+          <Droppable droppableId="list" direction="horizontal" type="list" >
             {(provided) => (
               <div
                 ref={provided.innerRef}
