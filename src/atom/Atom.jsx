@@ -59,3 +59,8 @@ export const cardComment = atom({
   key: "cardComment",
   default: [],
 });
+
+export const currCardTitle = atom({
+  key: "currCardTitle",
+  default: "",
+});

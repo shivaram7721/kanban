@@ -12,17 +12,14 @@ import { dashBoardData } from "../../atom/Atom";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { dialogBox, TaskList } from "../../atom/Atom";
+import { dialogBox, TaskList, currCardTitle } from "../../atom/Atom";
 import { useSetRecoilState } from "recoil";
 
-export function List({ title, handleDelete, index, listData }) {
-  const { listId } = listData;
+export function List({ title, handleDelete, index }) {
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-
   const [data, setData] = useRecoilState(dashBoardData);
   const [listName, setListName] = useState("");
-
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const setCardDetail = useSetRecoilState(TaskList);
 
@@ -34,7 +31,6 @@ export function List({ title, handleDelete, index, listData }) {
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
-  // console.log(data);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -145,13 +141,14 @@ export function List({ title, handleDelete, index, listData }) {
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {data &&
-                data[index].cards.map((ele, index) => (
+                data[index].cards.map((ele, idx) => (
                   <CardItem
                     cardData={ele}
-                    index={index}
-                    key={index}
+                    index={idx}
+                    key={idx}
                     clickHandler={() => clickHandler(ele)}
                     handleCardDelete={() => handleCardDelete(ele.cardId)}
+                    listIndex={index}
                   />
                 ))}
               {provided.placeholder}

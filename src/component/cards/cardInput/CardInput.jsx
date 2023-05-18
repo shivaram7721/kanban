@@ -22,6 +22,9 @@ export function CardInput({ show, index }) {
   }
 
   function handleAddCard() {
+    if (!input) {
+      return;
+    }
     const temp = [...cardData[index].cards];
     console.log("index is " + index);
     const newCard = {
@@ -43,7 +46,7 @@ export function CardInput({ show, index }) {
     console.log(updated);
     setCardData(final);
     setInput("");
-    show(!show)
+    show(!show);
   }
 
   return (
@@ -75,7 +78,7 @@ export function CardInput({ show, index }) {
               Add card
             </Button>
             {/* <RxCross2 style={{fontSize:"1rem"}}/> */}
-            <CloseIcon onClick={show} />
+            <CloseIcon onClick={show} style={{ cursor: "poiner" }} />
           </div>
           {/* <HiOutlineDotsHorizontal /> */}
         </div>

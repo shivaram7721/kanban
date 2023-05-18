@@ -62,7 +62,7 @@ export default function DashBoard() {
       listId: uuidv4(),
       listTitle: listName,
       cards: [],
-      createdAt: Date.now(),
+      createdAt: new Date().toLocaleString(),
       activity: [],
     };
     const tempData = [...listData, newListItem];
