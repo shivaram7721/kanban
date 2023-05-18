@@ -69,3 +69,8 @@ export const listIndex = atom({
   key: "listIndex",
   default: 0,
 });
+
+export const dragListIndex = atom({
+  key: "dragListIndex",
+  default: 0
+})
