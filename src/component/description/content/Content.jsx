@@ -2,29 +2,74 @@ import { useState } from "react";
 import SubjectIcon from "@mui/icons-material/Subject";
 import { Editor } from "@tinymce/tinymce-react";
 import style from "./Content.module.css";
-import { useRecoilState } from "recoil";
-import { TaskList } from "../../../atom/Atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { TaskList, listIndex, dashBoardData } from "../../../atom/Atom";
 
 export default function Content() {
   const [description, setDescription] = useState(true);
-  // const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  // const updateList = useRecoilValue(TaskList);
+  const [cardData, setCardData] = useRecoilState(dashBoardData);
+  const index = useRecoilValue(listIndex);
   const [updateList, setUpdateList] = useRecoilState(TaskList);
   const [content, setContent] = useState(updateList.description);
+
+  console.log(updateList.description);
 
   const handleEditorChange = (content) => {
     setContent(content);
   };
 
-  console.log(updateList);
-  console.log("my description" + content);
-
   const handleContent = () => {
-    // setShowContent(true);
+    setShowContent(true);
+    const id = updateList.cardId;
     setDescription(true);
-    const DescriptionData = { ...updateList };
-    DescriptionData.description = content;
-    setUpdateList(DescriptionData);
-    // console.log(updateList);
+
+    const updatedCardData = [...cardData]; // Create a copy of cardData
+
+    const updateDescription = [...updatedCardData[index].cards]; // Create a copy of the cards array for the specified index
+
+    const cardIndex = updateDescription.findIndex((card) => card.cardId === id); // Find the index of the card to update
+
+    if (cardIndex !== -1) {
+      console.log(content);
+      updateDescription[cardIndex] = {
+        ...updateDescription[cardIndex],
+        description: content,
+      };
+    }
+
+    updatedCardData[index] = {
+      ...updatedCardData[index],
+      cards: updateDescription,
+    };
+
+    setCardData(updatedCardData);
+    console.log("new data ", cardData);
+    setUpdateList((prevTitle) => {
+      console.log(prevTitle);
+      const updatedTitle = { ...prevTitle, description: content };
+      return updatedTitle;
+    });
+
+    // setShowContent(true);
+    // const id = updateList.cardId;
+    // setDescription(true);
+    // console.log(content);
+    // const update = [...cardData];
+    // const updateDescription = [...update[index].cards];
+    // const cardIndex = updateDescription.findIndex((card) => card.cardId === id);
+    // if (cardIndex !== -1) {
+    //   updateDescription[cardIndex] = {
+    //     ...updateDescription[cardIndex],
+    //     description: content,
+    //   };
+    //   console.log(cardIndex);
+    // }
+    // update[index] = { ...update[index], cards: updateDescription };
+    // setCardData(update);
+    // console.log(index);
+    // console.log("new data ", cardData);
   };
   return (
     <div>
@@ -34,11 +79,16 @@ export default function Content() {
           Description
         </p>
       </span>
-
       {description ? (
         <div onClick={() => setDescription(false)} className={style.contentBtn}>
-          {content !== "" ? (
-            <button className={style.btn3}>edit </button>
+          {updateList.description !== "" || showContent === true ? (
+            <span className={style.innerDiv}>
+              <div
+                style={{ paddingLeft: "3rem" }}
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
+              <button className={style.btn3}>edit </button>
+            </span>
           ) : (
             <button
               style={{
@@ -74,14 +124,14 @@ export default function Content() {
           </span>
         </>
       )}
-      {content !== "" ? (
+      {/* {showContent === true || content !== "" ? (
         <div
           style={{ paddingLeft: "3rem" }}
           dangerouslySetInnerHTML={{ __html: content }}
         />
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 }

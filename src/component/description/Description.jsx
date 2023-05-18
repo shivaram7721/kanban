@@ -16,6 +16,7 @@ export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const [isComment, setComment] = useRecoilState(isCardDetail);
+  // const setIsTitle = useSetRecoilState(isShowTitle);
   const cardData = useRecoilValue(dashBoardData);
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
@@ -29,6 +30,10 @@ export default function Description() {
     setComment(!isComment);
   };
 
+  // const ChangeTitle = () => {
+  //   setIsTitle(false);
+  // };
+
   return (
     <div>
       <div className={classes.container}>
@@ -38,15 +43,19 @@ export default function Description() {
             sx: {
               maxWidth: "70vw",
               width: 800,
-              minHeight: "90vh",
+              // minHeight: "90vh",
               backgroundColor: "whitesmoke",
+              // overflow: "scroll",
               // marginBottom: "3rem",
             },
           }}
         >
           <DialogContent>
             <div className={classes.DialogContent}>
-              <Title clickHandler={closeDialogHandle} />
+              <Title
+                clickHandler={closeDialogHandle}
+                // ChangeTitle={ChangeTitle}
+              />
               <div className={classes.container2}>
                 <p style={{ margin: 0, paddingBottom: "0.5rem" }}>
                   Notifications
