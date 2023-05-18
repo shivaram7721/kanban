@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .mainDiv {
   padding: 1rem;
   display: flex;
@@ -8,9 +7,6 @@
 ::-webkit-scrollbar {
   display: none;
 }
-=======
-
->>>>>>> master
 
 .horizontalContainer::-webkit-scrollbar {
   display: none;
@@ -29,21 +25,17 @@
 .listItem {
   margin-right: 10px;
 }
-<<<<<<< HEAD
-=======
-  
-  .horizontalContainer {
-    display: flex;
-    overflow-x: auto; 
-    padding: 1rem;
-  }
-  
-  .listContainer {
-    display: flex;
-  }
-  
-  .listItem {
-    margin-right: 10px;
-  }
-  
->>>>>>> master
+
+.horizontalContainer {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.listContainer {
+  display: flex;
+}
+
+.listItem {
+  margin-right: 10px;
+}
