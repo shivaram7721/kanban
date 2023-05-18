@@ -23,7 +23,15 @@
   display: flex;
   justify-content: space-between;
   width: 17rem;
+  height: 2vh;
   cursor: pointer;
+  padding: 5px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.cardTitle {
+  height: 2vh;
 }
 
 .card:hover {

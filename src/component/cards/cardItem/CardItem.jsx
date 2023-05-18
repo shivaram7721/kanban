@@ -66,7 +66,7 @@ export function CardItem({
             ) : (
               <span className={styles.containerCard}>
                 <Link to={`?id=${cardId}`} className={styles.link}>
-                  <p onClick={clickHandler}>{cardTitle}</p>
+                  <p className={styles.cardTitle} onClick={clickHandler}>{cardTitle}</p>
                 </Link>
                 <span className={styles.icons}>
                   <AiTwotoneEdit onClick={() => setCardTitleChange(true)} />{" "}
