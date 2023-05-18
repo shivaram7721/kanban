@@ -43,7 +43,7 @@ export default function Description() {
             sx: {
               maxWidth: "70vw",
               width: 800,
-              // minHeight: "90vh",
+              minHeight: "90vh",
               backgroundColor: "whitesmoke",
               // overflow: "scroll",
               // marginBottom: "3rem",
