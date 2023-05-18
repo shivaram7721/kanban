@@ -11,31 +11,18 @@
 .horizontalContainer::-webkit-scrollbar {
   display: none;
 }
-
-.horizontalContainer {
-  display: flex;
-  overflow-x: auto;
-  margin: 0rem 1rem;
-}
-
-.listContainer {
-  display: flex;
-}
-
-.listItem {
-  margin-right: 10px;
-}
-
-.horizontalContainer {
-  display: flex;
-  overflow-x: auto;
-  padding: 1rem;
-}
-
-.listContainer {
-  display: flex;
-}
-
-.listItem {
-  margin-right: 10px;
-}
+  
+  .horizontalContainer {
+    display: flex;
+    overflow-x: auto; 
+    padding: 1rem;
+  }
+  
+  .listContainer {
+    display: flex;
+  }
+  
+  .listItem {
+    margin-right: 10px;
+  }
+  
