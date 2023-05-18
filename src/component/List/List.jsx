@@ -15,17 +15,17 @@ import Typography from "@mui/material/Typography";
 import { dialogBox, TaskList, listIndex } from "../../atom/Atom";
 import { useSetRecoilState } from "recoil";
 
-export function List({ title, handleDelete, index, listData, datas }) {
+export function List({ title, handleDelete, index, listData }) {
   const { listId } = listData;
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [data, setData] = useRecoilState(dashBoardData);
+  const setIndex = useSetRecoilState(listIndex);
 
   const [listName, setListName] = useState("");
 
   const setIsDialog = useSetRecoilState(dialogBox);
   const setCardDetail = useSetRecoilState(TaskList);
-  const setIndex = useSetRecoilState(listIndex);
 
   function clickHandler(data1) {
     setIsDialog(true);
@@ -121,24 +121,25 @@ export function List({ title, handleDelete, index, listData, datas }) {
           </Popover>
         </div>
       </div>
-        <Droppable droppableId={listId} type="cards">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              {datas &&
-                datas[index].cards.map((ele, index) => (
-                  <CardItem
-                    cardData={ele}
-                    index={index}
-                    key={index}
-                    clickHandler={() => clickHandler(ele)}
-                    handleCardDelete={() => handleCardDelete(ele.cardId)}
-                    listIndex={index}
-                  />
-                ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+
+      <Droppable droppableId={listId} type="cards">
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            {data &&
+              data[index].cards.map((ele, index) => (
+                <CardItem
+                  cardData={ele}
+                  index={index}
+                  key={index}
+                  clickHandler={() => clickHandler(ele)}
+                  handleCardDelete={() => handleCardDelete(ele.cardId)}
+                  listIndex={index}
+                />
+              ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
 
       {show ? (
         <div className={styles.addCardBtn}>

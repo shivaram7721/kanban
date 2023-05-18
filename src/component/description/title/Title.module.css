@@ -13,3 +13,12 @@
     font-size: 1rem;
     
 }
+.inputBox{
+    font-size: 23px;
+    font-weight: 530;
+    padding: 0.5rem 0 0.2rem 1rem;
+}
+.updateBox{
+    display: flex;
+    gap: 2rem;
+}
