@@ -32,7 +32,7 @@ export function CardInput({ show, index }) {
       createdAt: new Date().toLocaleString(),
       activity: [
         {
-          changes: "xyz added this card to todo",
+          changes: "",
           chagedAt: new Date().toLocaleString(),
         },
       ],

@@ -37,6 +37,39 @@ export const dashBoardData = atom({
   default: [...localData],
 });
 
+export const dragListIndex = atom({
+  key: "dragListIndex",
+  default: 0,
+});
+
+// Description Atoms
+
+export const isCardDetail = atom({
+  key: "isCardDetail",
+  default: true,
+});
+
+export const isShowTitle = atom({
+  key: "isShowTitle",
+  default: true,
+});
+
+// export const cardTitle = atom({
+//   key: "cardTitle",
+//   default: "",
+// });
+export const listIndex = atom({
+  key: "listIndex",
+  default: 0,
+});
+export const cardComment = atom({
+  key: "cardComment",
+  default: [],
+});
+export const dialogBox = atom({
+  key: "dialogBox",
+  default: false,
+});
 export const TaskList = atom({
   key: "TaskList",
   default: {},
@@ -44,39 +77,5 @@ export const TaskList = atom({
 
 export const watchNotification = atom({
   key: "watchNotification",
-  default: true,
-});
-
-export const dialogBox = atom({
-  key: "dialogBox",
-  default: false,
-});
-
-export const cardComment = atom({
-  key: "cardComment",
-  default: [],
-});
-
-export const isCardDetail = atom({
-  key: "isCardDetail",
-  default: true,
-});
-
-export const listIndex = atom({
-  key: "listIndex",
-  default: 0,
-});
-
-export const dragListIndex = atom({
-  key: "dragListIndex",
-  default: 0,
-});
-export const cardTitle = atom({
-  key: "cardTitle",
-  default: "",
-});
-
-export const isShowTitle = atom({
-  key: "isShowTitle",
   default: true,
 });

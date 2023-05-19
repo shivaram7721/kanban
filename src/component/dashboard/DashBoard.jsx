@@ -115,7 +115,10 @@ export default function DashBoard() {
         final[index] = updated;
 
         setListData(final);
+
         setLocalData(final);
+
+
       } else {
         const sourceIndex = findListById(source.droppableId);
         const destinationIndex = findListById(destination.droppableId);
