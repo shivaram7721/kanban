@@ -9,6 +9,7 @@ import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Nav from "../nav/Nav";
 import Description from "../description/Description";
+import { setLocalData } from "../../Utils";
 
 const data = [
   {
@@ -48,7 +49,7 @@ export default function DashBoard() {
   const [img, setImg] = useState(0);
 
   const [dragIndex, setDragIndex] = useRecoilState(dragListIndex);
-  console.log(dragIndex)
+  console.log(dragIndex);
 
   function handleClick() {
     setOpen(true);
@@ -58,9 +59,13 @@ export default function DashBoard() {
     const tempData = [...listData];
     const filterData = tempData.filter((ele) => ele.listId != listId);
     setListData(filterData);
+    setLocalData(filterData);
   }
 
   function handleCreateList() {
+    if (!listName) {
+      return;
+    }
     const newListItem = {
       listId: uuidv4(),
       listTitle: listName,
@@ -70,7 +75,9 @@ export default function DashBoard() {
     };
     const tempData = [...listData, newListItem];
     setListData(tempData);
+    setLocalData(tempData);
     setOpen(false);
+    setListName("");
   }
 
   function changeImg() {
@@ -81,34 +88,34 @@ export default function DashBoard() {
   }
 
   function handleDragEnd(result) {
-
     function findListById(listId) {
       return listData.findIndex((list) => list.listId === listId);
     }
-    
+
     if (result.type === "cards") {
       const { source, destination } = result;
-      console.log(result)
+      console.log(result);
 
       if (!destination) {
         return;
       }
 
-      if(source.droppableId === destination.droppableId) {
-        const index = findListById(source.droppableId)
+      if (source.droppableId === destination.droppableId) {
+        const index = findListById(source.droppableId);
 
-      const sourceList = listData[index].cards;
+        const sourceList = listData[index].cards;
 
-      // const newSourceCards = Array.from(sourceList);
-      const newSourceCards = [...sourceList]
-      const [reorderedCard] = newSourceCards.splice(source.index, 1);
-      newSourceCards.splice(destination.index, 0, reorderedCard);
+        // const newSourceCards = Array.from(sourceList);
+        const newSourceCards = [...sourceList];
+        const [reorderedCard] = newSourceCards.splice(source.index, 1);
+        newSourceCards.splice(destination.index, 0, reorderedCard);
 
-      const updated = { ...listData[index], cards: newSourceCards };
-      const final = [...listData];
-      final[index] = updated;
+        const updated = { ...listData[index], cards: newSourceCards };
+        const final = [...listData];
+        final[index] = updated;
 
-      setListData(final);
+        setListData(final);
+        setLocalData(final);
       } else {
         const sourceIndex = findListById(source.droppableId);
         const destinationIndex = findListById(destination.droppableId);
@@ -118,23 +125,27 @@ export default function DashBoard() {
 
         const newSourceCards = [...sourceCards];
         const newDestinationCards = [...destinationCards];
-        
+
         const [draggedCard] = newSourceCards.splice(source.index, 1);
         newDestinationCards.splice(destination.index, 0, draggedCard);
 
-        const updatedSource = {...listData[sourceIndex], cards: newSourceCards}
-        const updatedDestination = {...listData[destinationIndex], cards: newDestinationCards}
-
+        const updatedSource = {
+          ...listData[sourceIndex],
+          cards: newSourceCards,
+        };
+        const updatedDestination = {
+          ...listData[destinationIndex],
+          cards: newDestinationCards,
+        };
 
         const updatedListData = [...listData];
         updatedListData[sourceIndex] = updatedSource;
         updatedListData[destinationIndex] = updatedDestination;
 
         setListData(updatedListData);
+        setLocalData(updatedListData);
       }
     }
-
-
 
     if (result.type === "list") {
       const { source, destination } = result;
@@ -149,9 +160,8 @@ export default function DashBoard() {
       newListData.splice(destination.index, 0, draggedList);
 
       setListData(newListData);
+      setLocalData(newListData);
     }
-
-
   }
 
   return (
@@ -169,7 +179,7 @@ export default function DashBoard() {
       >
         <Nav changeImg={changeImg} />
         <div className={styles.horizontalContainer}>
-          <Droppable droppableId="list" direction="horizontal" type="list" >
+          <Droppable droppableId="list" direction="horizontal" type="list">
             {(provided) => (
               <div
                 ref={provided.innerRef}
@@ -211,6 +221,7 @@ export default function DashBoard() {
             <TitleInput
               onChange={(e) => setListName(e.target.value)}
               onClick={handleCreateList}
+              setOpen={setOpen}
             />
           ) : (
             <AddListButton onClick={handleClick} />

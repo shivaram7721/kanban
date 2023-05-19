@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { atom } from "recoil";
 import { v4 as uuidv4 } from "uuid";
+import { getLocalData } from "../Utils";
 
 let dashboard = [
   {
@@ -24,6 +25,8 @@ let dashboard = [
   },
 ];
 
+const localData = getLocalData();
+
 export const addCards = atom({
   key: "addCards",
   default: [],
@@ -31,7 +34,7 @@ export const addCards = atom({
 
 export const dashBoardData = atom({
   key: "dashBoardData",
-  default: [...dashboard],
+  default: [...localData],
 });
 
 export const TaskList = atom({

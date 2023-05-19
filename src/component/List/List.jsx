@@ -14,6 +14,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { dialogBox, TaskList, listIndex } from "../../atom/Atom";
 import { useSetRecoilState } from "recoil";
+import { setLocalData } from "../../Utils";
 
 export function List({ title, handleDelete, index, listData, datas }) {
   const { listId } = listData;
@@ -58,6 +59,7 @@ export function List({ title, handleDelete, index, listData, datas }) {
     temp.listTitle = listName;
     update[index] = temp;
     setData(update);
+    setLocalData(update);
     setIsEdit(false);
   }
 
@@ -70,6 +72,7 @@ export function List({ title, handleDelete, index, listData, datas }) {
     const finalData = [...data];
     finalData[index] = tempList;
     setData(finalData);
+    setLocalData(finalData);
   }
 
   const placeholderItem = (
