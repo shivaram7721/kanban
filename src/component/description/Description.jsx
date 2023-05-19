@@ -1,6 +1,5 @@
 import { Dialog, DialogContent } from "@mui/material";
 import { AiOutlineEye } from "react-icons/ai";
-import { dialogBox, watchNotification } from "../../atom/Atom";
 import classes from "./Description.module.css";
 import CheckBoxTwoToneIcon from "@mui/icons-material/CheckBoxTwoTone";
 import Title from "./title/Title";
@@ -9,15 +8,22 @@ import Activity from "./acitivity/Activity";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import Comment from "./comment/Comment";
-import { isCardDetail, dashBoardData, listIndex } from "../../atom/Atom";
+import {
+  isCardDetail,
+  dashBoardData,
+  listIndex,
+  dialogBox,
+  watchNotification,
+  TaskList,
+} from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const [isComment, setComment] = useRecoilState(isCardDetail);
-  // const setIsTitle = useSetRecoilState(isShowTitle);
-  const cardData = useRecoilValue(dashBoardData);
+  const [card, setCard] = useRecoilState(TaskList);
+  const [listData, setListData] = useRecoilState(dashBoardData);
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
 
@@ -26,13 +32,33 @@ export default function Description() {
     navigate("/");
   };
 
+  const activityData = [
+    {
+      changes: `user added this card to ${listData[index].listTitle}`,
+      changesAt: card.createdAt,
+    },
+  ];
+
+  console.log(activityData);
   const showCardDetail = () => {
     setComment(!isComment);
-  };
+    const id = card.cardId;
+    const updatedCardData = [...listData];
+    const updateCards = [...updatedCardData[index].cards];
+    let cardActivity = updateCards.find((ele) => ele.cardId === id);
+    cardActivity = {
+      ...cardActivity,
+      activity: [...cardActivity.activity, ...activityData],
+    };
+    console.log(cardActivity);
 
-  // const ChangeTitle = () => {
-  //   setIsTitle(false);
-  // };
+    // setListData(cardActivity);
+    // const updatedCard = {
+    //   ...card,
+    //   activity: [...card.activity, ...activityData],
+    // };
+    // setCard(updatedCard);
+  };
 
   return (
     <div>
@@ -45,17 +71,13 @@ export default function Description() {
               width: 800,
               minHeight: "90vh",
               backgroundColor: "whitesmoke",
-              // overflow: "scroll",
-              // marginBottom: "3rem",
+              overflow: "auto",
             },
           }}
         >
           <DialogContent>
             <div className={classes.DialogContent}>
-              <Title
-                clickHandler={closeDialogHandle}
-                // ChangeTitle={ChangeTitle}
-              />
+              <Title clickHandler={closeDialogHandle} />
               <div className={classes.container2}>
                 <p style={{ margin: 0, paddingBottom: "0.5rem" }}>
                   Notifications
@@ -92,28 +114,23 @@ export default function Description() {
                   </span>
                 </button>
               </div>
-              <span>
-                <Content />
-              </span>
-              <span>
-                <Activity
-                  showCardDetail={showCardDetail}
-                  isComment={isComment}
-                />
-              </span>
-              <span>
-                <Comment />
-              </span>
+              <Content />
+              <Activity showCardDetail={showCardDetail} isComment={isComment} />
+              <Comment />
               {isComment ? (
                 ""
               ) : (
-                <span className={classes.div2}>
+                <div className={classes.div2}>
                   <CgProfile className={classes.icons} />
                   <span className={classes.container5}>
-                    <p>user added this card to {cardData[index].listTitle}</p>
-                    {cardData[index].createdAt}
+                    {card.activity.map((ele, index) => (
+                      <span key={index}>
+                        <p>{ele.changes}</p>
+                        {ele.changesAt}
+                      </span>
+                    ))}
                   </span>
-                </span>
+                </div>
               )}
             </div>
           </DialogContent>

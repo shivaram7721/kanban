@@ -10,11 +10,9 @@ import { dashBoardData } from "../../../atom/Atom";
 import { v4 as uuidv4 } from "uuid";
 
 export function CardInput({ show, index }) {
-  
   const [cardData, setCardData] = useRecoilState(dashBoardData);
   const [input, setInput] = useState("");
   // const [input3, setInput3] = useState([]);
-
 
   function handleChange(e) {
     setInput(e.target.value);
@@ -33,7 +31,7 @@ export function CardInput({ show, index }) {
       createdAt: new Date().toLocaleString(),
       activity: [
         {
-          changes: "xyz added this card to todo",
+          changes: "",
           chagedAt: new Date().toLocaleString(),
         },
       ],
