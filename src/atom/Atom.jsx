@@ -14,19 +14,13 @@ let dashboard = [
         createdAt: new Date().toLocaleString(),
         activity: [
           {
-            changes: "xyz added this card to todo",
-            chagedAt: "2pm",
+            changes: "",
+            chagedAt: "",
           },
         ],
       },
     ],
     createdAt: new Date().toLocaleString(),
-    activity: [
-      {
-        changes: "xyz added this card to todo",
-        chagedAt: "2pm",
-      },
-    ],
   },
 ];
 

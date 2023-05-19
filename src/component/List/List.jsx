@@ -73,9 +73,7 @@ export function List({ title, handleDelete, index, listData, datas }) {
   }
 
   const placeholderItem = (
-    <div className={styles.placeholderItem}>
-      {/* Drag a card here */}
-    </div>
+    <div className={styles.placeholderItem}>{/* Drag a card here */}</div>
   );
 
   return (
@@ -127,26 +125,25 @@ export function List({ title, handleDelete, index, listData, datas }) {
           </Popover>
         </div>
       </div>
-        <Droppable droppableId={listId} type="cards">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps} >
-              {datas[index].cards.length > 0 ?
-                (
-                  datas[index].cards.map((ele, index) => (
-                    <CardItem
-                      cardData={ele}
-                      index={index}
-                      key={index}
-                      clickHandler={() => clickHandler(ele)}
-                      handleCardDelete={() => handleCardDelete(ele.cardId)}
-                      listIndex={index}
-                    />
-                  ))
-                ): (placeholderItem) }
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+      <Droppable droppableId={listId} type="cards">
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            {datas[index].cards.length > 0
+              ? datas[index].cards.map((ele, cardIndex) => (
+                  <CardItem
+                    cardData={ele}
+                    index={cardIndex}
+                    key={cardIndex}
+                    clickHandler={() => clickHandler(ele)}
+                    handleCardDelete={() => handleCardDelete(ele.cardId)}
+                    listIndex={index}
+                  />
+                ))
+              : placeholderItem}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
 
       {show ? (
         <div className={styles.addCardBtn}>

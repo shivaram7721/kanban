@@ -25,6 +25,9 @@ export function CardItem({
       return;
     }
 
+    console.log("Lis Index  -", listIndex);
+    console.log("CardIndex ", index);
+
     const updatedData = data.map((list, listInd) => {
       if (listInd === listIndex) {
         const updatedCards = list.cards.map((card, cardIndex) => {
@@ -66,7 +69,9 @@ export function CardItem({
             ) : (
               <span className={styles.containerCard}>
                 <Link to={`?id=${cardId}`} className={styles.link}>
-                  <p className={styles.cardTitle} onClick={clickHandler}>{cardTitle}</p>
+                  <p className={styles.cardTitle} onClick={clickHandler}>
+                    {cardTitle}
+                  </p>
                 </Link>
                 <span className={styles.icons}>
                   <AiTwotoneEdit onClick={() => setCardTitleChange(true)} />{" "}
