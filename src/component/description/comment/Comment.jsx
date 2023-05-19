@@ -2,13 +2,13 @@ import { Editor } from "@tinymce/tinymce-react";
 import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
 import style from "./Comment.module.css";
-import { cardComment } from "../../../atom/Atom";
-import { useRecoilState } from "recoil";
 
 function Comment() {
   const [isEditorView, setIsEditorView] = useState(false);
   const [content2, setContent2] = useState("");
-  const [comment, setComment] = useRecoilState(cardComment);
+  const [comment, setComment] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
 
   const now = new Date();
   const options = {
@@ -27,16 +27,28 @@ function Comment() {
   };
   const visibleHandler = () => {
     setIsEditorView(false);
-    const commentData = [...comment, { text: content2, time: formattedTime }];
-    setComment(commentData);
-    console.log(comment);
+    setComment([...comment, { text: content2, time: formattedTime }]);
     setContent2("");
   };
+  console.log(comment);
 
   const deleteComment = (id) => {
     setComment(comment.filter((ele, index) => index !== id));
   };
 
+  // function editComment(id) {
+  //   const update = comment.find((ele, index) => index === id);
+  //   setContent2(update);
+  //   setIsEdit(true);
+  //   setInputValue(update.text);
+  //   console.log(content2);
+  // }
+
+  const updateContent = () => {
+    console.log(inputValue);
+    console.log(comment);
+    // setContent2[0].text = inputValue;
+  };
   return (
     <div className={style.container3}>
       <CgProfile style={{ fontSize: "1.7rem" }} />
@@ -68,21 +80,34 @@ function Comment() {
             className={style.input}
             onClick={() => setIsEditorView(true)}
           />
-          {comment.map((ele, index) => (
-            <div key={index} className={style.div4}>
-              <span className={style.Innerdiv}>
-                <button
-                  className={style.button1}
-                  dangerouslySetInnerHTML={{ __html: ele.text }}
-                />
+          {isEdit ? (
+            <>
+              <input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <button onClick={updateContent}>Update</button>
+            </>
+          ) : (
+            <>
+              {comment.map((ele, index) => (
+                <div key={index} className={style.div4}>
+                  <span className={style.Innerdiv}>
+                    <button
+                      className={style.button1}
+                      dangerouslySetInnerHTML={{ __html: ele.text }}
+                    />
 
-                <ul className={style.div3}>
-                  <li onClick={() => deleteComment(index)}>Delete</li>
-                </ul>
-              </span>
-              <p>{ele.time}</p>
-            </div>
-          ))}
+                    <ul className={style.div3}>
+                      {/* <li onClick={() => editComment(index)}>Edit</li> */}
+                      <li onClick={() => deleteComment(index)}>Delete</li>
+                    </ul>
+                  </span>
+                  <p>{ele.time}</p>
+                </div>
+              ))}
+            </>
+          )}
         </span>
       )}
     </div>
