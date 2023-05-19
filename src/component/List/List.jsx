@@ -9,23 +9,23 @@ import { CardInput } from "../cards/cardInput/CardInput";
 import { CardItem } from "../cards/cardItem/CardItem";
 import { useRecoilState } from "recoil";
 import { dashBoardData } from "../../atom/Atom";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { dialogBox, TaskList, listIndex } from "../../atom/Atom";
 import { useSetRecoilState } from "recoil";
 
-export function List({ title, handleDelete, index }) {
+export function List({ title, handleDelete, index, listData, datas }) {
+  const { listId } = listData;
   const [show, setShow] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [data, setData] = useRecoilState(dashBoardData);
+  const setIndex = useSetRecoilState(listIndex);
 
-  console.log(data);
   const [listName, setListName] = useState("");
 
   const setIsDialog = useSetRecoilState(dialogBox);
   const setCardDetail = useSetRecoilState(TaskList);
-  const setIndex = useSetRecoilState(listIndex);
 
   function clickHandler(data1) {
     setIsDialog(true);
@@ -49,26 +49,6 @@ export function List({ title, handleDelete, index }) {
     setShow(!show);
   }
 
-  function handleDrag(result) {
-    const { source, destination } = result;
-
-    if (!destination) {
-      return;
-    }
-
-    const sourceList = data[index].cards;
-
-    const newSourceCards = Array.from(sourceList);
-    const [reorderedCard] = newSourceCards.splice(source.index, 1);
-    newSourceCards.splice(destination.index, 0, reorderedCard);
-
-    const updated = { ...data[index], cards: newSourceCards };
-    const final = [...data];
-    final[index] = updated;
-
-    setData(final);
-  }
-
   function handleTitleEdit() {
     if (!listName) {
       return;
@@ -85,16 +65,21 @@ export function List({ title, handleDelete, index }) {
   function handleCardDelete(cardId) {
     const tempList = { ...data[index] };
     const x = tempList.cards;
-    const filteredCardData = x.filter((ele, idx) => ele.cardId != cardId);
+    const filteredCardData = x.filter((ele) => ele.cardId != cardId);
     tempList.cards = filteredCardData;
     const finalData = [...data];
     finalData[index] = tempList;
     setData(finalData);
   }
 
+  const placeholderItem = (
+    <div className={styles.placeholderItem}>
+      {/* Drag a card here */}
+    </div>
+  );
+
   return (
     <div className={styles.cardContainer}>
-      {/* <DragDropContext onDragEnd={handleDrag}> */}
       <div className={styles.titleContainer}>
         {isEdit ? (
           <span>
@@ -142,27 +127,26 @@ export function List({ title, handleDelete, index }) {
           </Popover>
         </div>
       </div>
-
-      <DragDropContext onDragEnd={handleDrag}>
-        <Droppable droppableId={`list-${index}`} type="cards">
+        <Droppable droppableId={listId} type="cards">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              {data &&
-                data[index].cards.map((ele, idx) => (
-                  <CardItem
-                    cardData={ele}
-                    index={idx}
-                    key={idx}
-                    clickHandler={() => clickHandler(ele)}
-                    handleCardDelete={() => handleCardDelete(ele.cardId)}
-                    listIndex={index}
-                  />
-                ))}
+            <div ref={provided.innerRef} {...provided.droppableProps} >
+              {datas[index].cards.length > 0 ?
+                (
+                  datas[index].cards.map((ele, index) => (
+                    <CardItem
+                      cardData={ele}
+                      index={index}
+                      key={index}
+                      clickHandler={() => clickHandler(ele)}
+                      handleCardDelete={() => handleCardDelete(ele.cardId)}
+                      listIndex={index}
+                    />
+                  ))
+                ): (placeholderItem) }
               {provided.placeholder}
             </div>
           )}
         </Droppable>
-      </DragDropContext>
 
       {show ? (
         <div className={styles.addCardBtn}>

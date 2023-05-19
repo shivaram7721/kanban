@@ -4,7 +4,7 @@ import AddListButton from "../button/addListButton/AddListButton";
 import { List } from "../List/List";
 import styles from "./DashBoard.module.css";
 import TitleInput from "../list/titleInput/TitleInput";
-import { dashBoardData } from "../../atom/Atom";
+import { dashBoardData, dragListIndex } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Nav from "../nav/Nav";
@@ -47,6 +47,9 @@ export default function DashBoard() {
   const [listName, setListName] = useState("");
   const [img, setImg] = useState(0);
 
+  const [dragIndex, setDragIndex] = useRecoilState(dragListIndex);
+  console.log(dragIndex)
+
   function handleClick() {
     setOpen(true);
   }
@@ -76,28 +79,97 @@ export default function DashBoard() {
       setImg(0);
     }
   }
-        
-  function handleDragEnd(result) {
-    const { source, destination } = result;
 
-    if (!destination) {
-      return;
+  function handleDragEnd(result) {
+
+    function findListById(listId) {
+      return listData.findIndex((list) => list.listId === listId);
+    }
+    
+    if (result.type === "cards") {
+      const { source, destination } = result;
+      console.log(result)
+
+      if (!destination) {
+        return;
+      }
+
+      if(source.droppableId === destination.droppableId) {
+        const index = findListById(source.droppableId)
+
+      const sourceList = listData[index].cards;
+
+      // const newSourceCards = Array.from(sourceList);
+      const newSourceCards = [...sourceList]
+      const [reorderedCard] = newSourceCards.splice(source.index, 1);
+      newSourceCards.splice(destination.index, 0, reorderedCard);
+
+      const updated = { ...listData[index], cards: newSourceCards };
+      const final = [...listData];
+      final[index] = updated;
+
+      setListData(final);
+      } else {
+        const sourceIndex = findListById(source.droppableId);
+        const destinationIndex = findListById(destination.droppableId);
+
+        const sourceCards = listData[sourceIndex].cards;
+        const destinationCards = listData[destinationIndex].cards;
+
+        const newSourceCards = [...sourceCards];
+        const newDestinationCards = [...destinationCards];
+        
+        const [draggedCard] = newSourceCards.splice(source.index, 1);
+        newDestinationCards.splice(destination.index, 0, draggedCard);
+
+        const updatedSource = {...listData[sourceIndex], cards: newSourceCards}
+        const updatedDestination = {...listData[destinationIndex], cards: newDestinationCards}
+
+
+        const updatedListData = [...listData];
+        updatedListData[sourceIndex] = updatedSource;
+        updatedListData[destinationIndex] = updatedDestination;
+
+        setListData(updatedListData);
+      }
     }
 
-    const newListData = Array.from(listData);
-    const [draggedList] = newListData.splice(source.index, 1);
-    newListData.splice(destination.index, 0, draggedList);
 
-    setListData(newListData);
-    console.log(newListData);
+
+    if (result.type === "list") {
+      const { source, destination } = result;
+
+      if (!destination) {
+        return;
+      }
+
+      // const newListData = Array.from(listData);
+      const newListData = [...listData];
+      const [draggedList] = newListData.splice(source.index, 1);
+      newListData.splice(destination.index, 0, draggedList);
+
+      setListData(newListData);
+    }
+
+
   }
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <div className={styles.dashBoardContainer} style={{backgroundImage:`url(${data[img].image})`, height:'100vh', backgroundRepeat:'no-repeat',backgroundSize:'cover',backgroundPosition:'center',transition:'3s'}}>
-        <Nav changeImg={changeImg}/>
+    <DragDropContext onDragEnd={handleDragEnd} Combine={true}>
+      <div
+        className={styles.dashBoardContainer}
+        style={{
+          backgroundImage: `url(${data[img].image})`,
+          height: "100vh",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transition: "3s",
+        }}
+      >
+        <Nav changeImg={changeImg} />
         <div className={styles.horizontalContainer}>
-          <Droppable droppableId="list" direction="horizontal">
+          <Droppable droppableId="list" direction="horizontal" type="list" >
             {(provided) => (
               <div
                 ref={provided.innerRef}
@@ -123,6 +195,8 @@ export default function DashBoard() {
                           handleDelete={() => handleDeleteList(ele.listId)}
                           index={index}
                           listData={ele}
+                          datas={listData}
+                          handleDragIndex={() => setDragIndex(index)}
                         />
                       </div>
                     )}

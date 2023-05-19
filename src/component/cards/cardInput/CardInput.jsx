@@ -5,17 +5,16 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 // import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { addCards, dashBoardData } from "../../../atom/Atom";
+import { useRecoilState } from "recoil";
+import { dashBoardData } from "../../../atom/Atom";
 import { v4 as uuidv4 } from "uuid";
 
 export function CardInput({ show, index }) {
-  // const [card, setCard] = useRecoilState(addCards);
+  
   const [cardData, setCardData] = useRecoilState(dashBoardData);
   const [input, setInput] = useState("");
   // const [input3, setInput3] = useState([]);
 
-  // console.log(card);
 
   function handleChange(e) {
     setInput(e.target.value);

@@ -63,3 +63,17 @@ export const listIndex = atom({
   key: "listIndex",
   default: 0,
 });
+
+export const dragListIndex = atom({
+  key: "dragListIndex",
+  default: 0,
+});
+export const cardTitle = atom({
+  key: "cardTitle",
+  default: "",
+});
+
+export const isShowTitle = atom({
+  key: "isShowTitle",
+  default: true,
+});
