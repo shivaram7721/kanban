@@ -17,14 +17,13 @@ import {
   TaskList,
 } from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
-import { setLocalData } from "../../Utils";
 import { useRef, useState } from "react";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const [isComment, setComment] = useRecoilState(isCardDetail);
-  const [listData, setListData] = useRecoilState(dashBoardData);
+  const listData = useRecoilValue(dashBoardData);
   const card = useRecoilValue(TaskList);
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
@@ -57,28 +56,6 @@ export default function Description() {
 
   const showCardDetail = () => {
     setComment(!isComment);
-
-    // const id = card.cardId;
-    // const updatedCardData = [...listData]; // Create a copy of cardData
-
-    // const updateActivity = [...updatedCardData[index].cards]; // Create a copy of the cards array for the specified index
-
-    // const cardIndex = updateActivity.findIndex((card) => card.cardId === id); // Find the index of the card to update
-
-    // if (cardIndex !== -1) {
-    //   updateActivity[cardIndex] = {
-    //     ...updateActivity[cardIndex],
-    //     activity: activityData,
-    //   };
-    // }
-
-    // updatedCardData[index] = {
-    //   ...updatedCardData[index],
-    //   cards: updateActivity,
-    // };
-
-    // setListData(updatedCardData);
-    // setLocalData(updatedCardData);
   };
 
   console.log(listData[index]);
