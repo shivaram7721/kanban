@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AddListButton from "../button/addListButton/AddListButton";
 import { List } from "../List/List";
 import styles from "./DashBoard.module.css";
-import TitleInput from "../list/titleInput/TitleInput";
+import TitleInput from "../List/titleInput/TitleInput";
 import { dashBoardData, dragListIndex } from "../../atom/Atom";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
