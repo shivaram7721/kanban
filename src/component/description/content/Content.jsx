@@ -4,6 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import style from "./Content.module.css";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { TaskList, listIndex, dashBoardData } from "../../../atom/Atom";
+import { setLocalData } from "../../../Utils";
 
 export default function Content() {
   const [description, setDescription] = useState(true);
@@ -44,6 +45,8 @@ export default function Content() {
     };
 
     setCardData(updatedCardData);
+    setLocalData(updatedCardData);
+
     console.log("new data ", cardData);
     setUpdateList((prevTitle) => {
       console.log(prevTitle);
