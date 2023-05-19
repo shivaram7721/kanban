@@ -17,8 +17,8 @@ import {
   TaskList,
 } from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
-import { setLocalData } from "../../Utils";
-import { useState } from "react";
+// import { setLocalData } from "../../Utils";
+// import { useState } from "react";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
