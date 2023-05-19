@@ -17,6 +17,7 @@ import {
   TaskList,
 } from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
+import { getLocalData, setLocalData } from "../../Utils";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
@@ -27,30 +28,34 @@ export default function Description() {
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
 
+  const getLocal = getLocalData();
+
   const closeDialogHandle = () => {
     setIsDialog(false);
     navigate("/");
   };
 
-  const activityData = [
-    {
-      changes: `user added this card to ${listData[index].listTitle}`,
-      changesAt: card.createdAt,
-    },
-  ];
+  // const activityData = [
+  //   {
+  //     changes: `user added this card to ${getLocal[index].listTitle}`,
+  //     changesAt: card.createdAt,
+  //   },
+  // ];
 
-  console.log(activityData);
-  const showCardDetail = () => {
-    setComment(!isComment);
-    const id = card.cardId;
-    const updatedCardData = [...listData];
-    const updateCards = [...updatedCardData[index].cards];
-    let cardActivity = updateCards.find((ele) => ele.cardId === id);
-    cardActivity = {
-      ...cardActivity,
-      activity: [...cardActivity.activity, ...activityData],
-    };
-    console.log(cardActivity);
+  // console.log(getLocal[index].listTitle)
+
+  // console.log(activityData);
+  // const showCardDetail = () => {
+  //   setComment(!isComment);
+  //   const id = card.cardId;
+  //   const updatedCardData = [...listData];
+  //   const updateCards = [...updatedCardData[index].cards];
+  //   let cardActivity = updateCards.find((ele) => ele.cardId === id);
+  //   cardActivity = {
+  //     ...cardActivity,
+  //     activity: [...cardActivity.activity, ...activityData],
+  //   };
+  //   console.log(cardActivity);
 
     // setListData(cardActivity);
     // const updatedCard = {
@@ -58,7 +63,7 @@ export default function Description() {
     //   activity: [...card.activity, ...activityData],
     // };
     // setCard(updatedCard);
-  };
+  // };
 
   return (
     <div>
@@ -115,9 +120,9 @@ export default function Description() {
                 </button>
               </div>
               <Content />
-              <Activity showCardDetail={showCardDetail} isComment={isComment} />
+              {/* <Activity showCardDetail={showCardDetail} isComment={isComment} /> */}
               <Comment />
-              {isComment ? (
+              {/* {isComment ? (
                 ""
               ) : (
                 <div className={classes.div2}>
@@ -131,7 +136,7 @@ export default function Description() {
                     ))}
                   </span>
                 </div>
-              )}
+              )} */}
             </div>
           </DialogContent>
         </Dialog>
