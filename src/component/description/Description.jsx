@@ -18,17 +18,17 @@ import {
 } from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
 // import { setLocalData } from "../../Utils";
-// import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const [isComment, setComment] = useRecoilState(isCardDetail);
-  const [listData, setListData] = useRecoilState(dashBoardData);
-  const [card, setCard] = useRecoilState(TaskList);
-  // const [activity, setActivity] = useState([]);
+  const listData = useRecoilValue(dashBoardData);
+  const card = useRecoilValue(TaskList);
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
+  const prevChangesRef = useRef(listData[index]?.listTitle);
 
   const closeDialogHandle = () => {
     setIsDialog(false);
@@ -37,14 +37,23 @@ export default function Description() {
 
   // console.log("dashboard index ", listData[index].listTitle);
 
-  const activityData = [
-    {
-      changes: card.cardTitle,
-      changesAt: card.createdAt,
-    },
-  ];
+  const activityData = {
+    changes: listData[index]?.listTitle,
+    changesAt: card?.createdAt,
+  };
+  const [activity, setActivity] = useState([activityData]);
 
-  // console.log(activityData);
+  console.log(prevChangesRef.current);
+
+  console.log(activityData);
+
+  if (activityData.changes !== prevChangesRef.current) {
+    activityData.changesAt = new Date().toLocaleString();
+    prevChangesRef.current = activityData.changes;
+    setActivity([activityData]);
+  }
+
+  console.log(activityData);
 
   const showCardDetail = () => {
     setComment(!isComment);
@@ -138,7 +147,7 @@ export default function Description() {
                 <div className={classes.div2}>
                   <CgProfile className={classes.icons} />
                   <span className={classes.container5}>
-                    {activityData.map((ele, index) => (
+                    {activity.map((ele, index) => (
                       <span key={index}>
                         <p>user added {ele.changes} card </p>
                         {ele.changesAt}
