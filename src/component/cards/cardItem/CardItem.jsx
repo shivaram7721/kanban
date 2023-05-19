@@ -7,6 +7,7 @@ import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 import { dashBoardData } from "../../../atom/Atom";
 import { useRecoilState } from "recoil";
+import { setLocalData } from "../../../Utils";
 
 export function CardItem({
   cardData,
@@ -42,6 +43,7 @@ export function CardItem({
     });
 
     setData(updatedData);
+    setLocalData(updatedData);
     setCardTitleChange(false);
   }
   return (

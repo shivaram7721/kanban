@@ -9,6 +9,7 @@ import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Nav from "../nav/Nav";
 import Description from "../description/Description";
+import { setLocalData } from "../../Utils";
 
 const data = [
   {
@@ -58,9 +59,13 @@ export default function DashBoard() {
     const tempData = [...listData];
     const filterData = tempData.filter((ele) => ele.listId != listId);
     setListData(filterData);
+    setLocalData(filterData);
   }
 
   function handleCreateList() {
+    if (!listName) {
+      return;
+    }
     const newListItem = {
       listId: uuidv4(),
       listTitle: listName,
@@ -70,7 +75,9 @@ export default function DashBoard() {
     };
     const tempData = [...listData, newListItem];
     setListData(tempData);
+    setLocalData(tempData);
     setOpen(false);
+    setListName("");
   }
 
   function changeImg() {
@@ -87,7 +94,7 @@ export default function DashBoard() {
 
     if (result.type === "cards") {
       const { source, destination } = result;
-      console.log(result)
+      console.log(result);
 
       if (!destination) {
         return;
@@ -108,6 +115,10 @@ export default function DashBoard() {
         final[index] = updated;
 
         setListData(final);
+
+        setLocalData(final);
+
+
       } else {
         const sourceIndex = findListById(source.droppableId);
         const destinationIndex = findListById(destination.droppableId);
@@ -135,6 +146,7 @@ export default function DashBoard() {
         updatedListData[destinationIndex] = updatedDestination;
 
         setListData(updatedListData);
+        setLocalData(updatedListData);
       }
     }
 
@@ -151,6 +163,7 @@ export default function DashBoard() {
       newListData.splice(destination.index, 0, draggedList);
 
       setListData(newListData);
+      setLocalData(newListData);
     }
   }
 
@@ -169,7 +182,7 @@ export default function DashBoard() {
       >
         <Nav changeImg={changeImg} />
         <div className={styles.horizontalContainer}>
-          <Droppable droppableId="list" direction="horizontal" type="list" >
+          <Droppable droppableId="list" direction="horizontal" type="list">
             {(provided) => (
               <div
                 ref={provided.innerRef}
@@ -211,6 +224,7 @@ export default function DashBoard() {
             <TitleInput
               onChange={(e) => setListName(e.target.value)}
               onClick={handleCreateList}
+              setOpen={setOpen}
             />
           ) : (
             <AddListButton onClick={handleClick} />

@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function TitleInput({ onChange, onClick }) {
+export default function TitleInput({ onChange, onClick, setOpen }) {
   return (
     <div className={styles.addCardContainer}>
       <div className={styles.textBox}>
@@ -37,9 +37,12 @@ export default function TitleInput({ onChange, onClick }) {
             }}
             className={styles.addBtn}
           >
-            Add card
+            Add List
           </Button>
-          <CloseIcon />
+          <CloseIcon
+            onClick={() => setOpen(false)}
+            style={{ cursor: "pointer" }}
+          />
         </span>
       </div>
     </div>

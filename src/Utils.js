@@ -1,11 +1,15 @@
 export function getLocalData() {
-  const questions = localStorage.getItem("queArr");
-  if (questions) {
+  const tasks = localStorage.getItem("kanban");
+  if (tasks) {
     try {
-      return JSON.parse(questions);
+      return JSON.parse(tasks);
     } catch {
       return [];
     }
   }
   return [];
+}
+
+export function setLocalData(data) {
+  localStorage.setItem("kanban", JSON.stringify(data));
 }

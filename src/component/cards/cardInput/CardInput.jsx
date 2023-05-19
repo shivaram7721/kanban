@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useRecoilState } from "recoil";
 import { dashBoardData } from "../../../atom/Atom";
 import { v4 as uuidv4 } from "uuid";
+import { setLocalData } from "../../../Utils";
 
 export function CardInput({ show, index }) {
   const [cardData, setCardData] = useRecoilState(dashBoardData);
@@ -42,6 +43,7 @@ export function CardInput({ show, index }) {
     final[index] = updated;
     console.log(updated);
     setCardData(final);
+    setLocalData(final);
     setInput("");
     show(!show);
   }
@@ -72,7 +74,7 @@ export function CardInput({ show, index }) {
               }}
               className={styles.addBtn}
             >
-              Add card
+              Add Card
             </Button>
             {/* <RxCross2 style={{fontSize:"1rem"}}/> */}
             <CloseIcon onClick={show} style={{ cursor: "poiner" }} />
