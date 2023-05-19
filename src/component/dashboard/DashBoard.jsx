@@ -48,7 +48,7 @@ export default function DashBoard() {
   const [img, setImg] = useState(0);
 
   const [dragIndex, setDragIndex] = useRecoilState(dragListIndex);
-  console.log(dragIndex)
+  console.log(dragIndex);
 
   function handleClick() {
     setOpen(true);
@@ -81,11 +81,10 @@ export default function DashBoard() {
   }
 
   function handleDragEnd(result) {
-
     function findListById(listId) {
       return listData.findIndex((list) => list.listId === listId);
     }
-    
+
     if (result.type === "cards") {
       const { source, destination } = result;
       console.log(result)
@@ -94,21 +93,21 @@ export default function DashBoard() {
         return;
       }
 
-      if(source.droppableId === destination.droppableId) {
-        const index = findListById(source.droppableId)
+      if (source.droppableId === destination.droppableId) {
+        const index = findListById(source.droppableId);
 
-      const sourceList = listData[index].cards;
+        const sourceList = listData[index].cards;
 
-      // const newSourceCards = Array.from(sourceList);
-      const newSourceCards = [...sourceList]
-      const [reorderedCard] = newSourceCards.splice(source.index, 1);
-      newSourceCards.splice(destination.index, 0, reorderedCard);
+        // const newSourceCards = Array.from(sourceList);
+        const newSourceCards = [...sourceList];
+        const [reorderedCard] = newSourceCards.splice(source.index, 1);
+        newSourceCards.splice(destination.index, 0, reorderedCard);
 
-      const updated = { ...listData[index], cards: newSourceCards };
-      const final = [...listData];
-      final[index] = updated;
+        const updated = { ...listData[index], cards: newSourceCards };
+        const final = [...listData];
+        final[index] = updated;
 
-      setListData(final);
+        setListData(final);
       } else {
         const sourceIndex = findListById(source.droppableId);
         const destinationIndex = findListById(destination.droppableId);
@@ -118,13 +117,18 @@ export default function DashBoard() {
 
         const newSourceCards = [...sourceCards];
         const newDestinationCards = [...destinationCards];
-        
+
         const [draggedCard] = newSourceCards.splice(source.index, 1);
         newDestinationCards.splice(destination.index, 0, draggedCard);
 
-        const updatedSource = {...listData[sourceIndex], cards: newSourceCards}
-        const updatedDestination = {...listData[destinationIndex], cards: newDestinationCards}
-
+        const updatedSource = {
+          ...listData[sourceIndex],
+          cards: newSourceCards,
+        };
+        const updatedDestination = {
+          ...listData[destinationIndex],
+          cards: newDestinationCards,
+        };
 
         const updatedListData = [...listData];
         updatedListData[sourceIndex] = updatedSource;
@@ -133,8 +137,6 @@ export default function DashBoard() {
         setListData(updatedListData);
       }
     }
-
-
 
     if (result.type === "list") {
       const { source, destination } = result;
@@ -150,8 +152,6 @@ export default function DashBoard() {
 
       setListData(newListData);
     }
-
-
   }
 
   return (
