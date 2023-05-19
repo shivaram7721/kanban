@@ -17,14 +17,14 @@ import {
   TaskList,
 } from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
-// import { setLocalData } from "../../Utils";
+import { setLocalData } from "../../Utils";
 import { useRef, useState } from "react";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const [isComment, setComment] = useRecoilState(isCardDetail);
-  const listData = useRecoilValue(dashBoardData);
+  const [listData, setListData] = useRecoilState(dashBoardData);
   const card = useRecoilValue(TaskList);
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
@@ -58,7 +58,6 @@ export default function Description() {
   const showCardDetail = () => {
     setComment(!isComment);
 
-    // setActivity([...activity, activityData]);
     // const id = card.cardId;
     // const updatedCardData = [...listData]; // Create a copy of cardData
 
@@ -149,7 +148,7 @@ export default function Description() {
                   <span className={classes.container5}>
                     {activity.map((ele, index) => (
                       <span key={index}>
-                        <p>user added {ele.changes} card </p>
+                        <p>user added this card to {ele.changes}</p>
                         {ele.changesAt}
                       </span>
                     ))}
