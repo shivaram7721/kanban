@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AddListButton from "../button/addListButton/AddListButton";
-import { List } from "../list/List";
+import { List } from "../List/List";
 import styles from "./DashBoard.module.css";
 import TitleInput from "../List/titleInput/TitleInput";
 import { dashBoardData, dragListIndex } from "../../atom/Atom";
