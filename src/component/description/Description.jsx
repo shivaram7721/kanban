@@ -38,7 +38,7 @@ export default function Description() {
 
   const activityData = {
     changes: listData[index]?.listTitle,
-    changesAt: card?.createdAt,
+    changesAt: card?.createdAt || new Date().toLocaleString(),
   };
   const [activity, setActivity] = useState([activityData]);
 
