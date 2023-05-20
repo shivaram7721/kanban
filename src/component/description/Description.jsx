@@ -17,18 +17,17 @@ import {
   TaskList,
 } from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
-import { setLocalData } from "../../Utils";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const [isComment, setComment] = useRecoilState(isCardDetail);
-  const [listData, setListData] = useRecoilState(dashBoardData);
-  const [card, setCard] = useRecoilState(TaskList);
-  // const [activity, setActivity] = useState([]);
+  const listData = useRecoilValue(dashBoardData);
+  const card = useRecoilValue(TaskList);
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
+  const prevChangesRef = useRef(listData[index]?.listTitle);
 
   const closeDialogHandle = () => {
     setIsDialog(false);
@@ -37,40 +36,26 @@ export default function Description() {
 
   // console.log("dashboard index ", listData[index].listTitle);
 
-  const activityData = [
-    {
-      changes: card.cardTitle,
-      changesAt: card.createdAt,
-    },
-  ];
+  const activityData = {
+    changes: listData[index]?.listTitle,
+    changesAt: card?.createdAt,
+  };
+  const [activity, setActivity] = useState([activityData]);
 
-  // console.log(activityData);
+  console.log(prevChangesRef.current);
+
+  console.log(activityData);
+
+  if (activityData.changes !== prevChangesRef.current) {
+    activityData.changesAt = new Date().toLocaleString();
+    prevChangesRef.current = activityData.changes;
+    setActivity([activityData]);
+  }
+
+  console.log(activityData);
 
   const showCardDetail = () => {
     setComment(!isComment);
-
-    // setActivity([...activity, activityData]);
-    // const id = card.cardId;
-    // const updatedCardData = [...listData]; // Create a copy of cardData
-
-    // const updateActivity = [...updatedCardData[index].cards]; // Create a copy of the cards array for the specified index
-
-    // const cardIndex = updateActivity.findIndex((card) => card.cardId === id); // Find the index of the card to update
-
-    // if (cardIndex !== -1) {
-    //   updateActivity[cardIndex] = {
-    //     ...updateActivity[cardIndex],
-    //     activity: activityData,
-    //   };
-    // }
-
-    // updatedCardData[index] = {
-    //   ...updatedCardData[index],
-    //   cards: updateActivity,
-    // };
-
-    // setListData(updatedCardData);
-    // setLocalData(updatedCardData);
   };
 
   console.log(listData[index]);
@@ -138,9 +123,9 @@ export default function Description() {
                 <div className={classes.div2}>
                   <CgProfile className={classes.icons} />
                   <span className={classes.container5}>
-                    {activityData.map((ele, index) => (
+                    {activity.map((ele, index) => (
                       <span key={index}>
-                        <p>user added {ele.changes} card </p>
+                        <p>user added this card to {ele.changes}</p>
                         {ele.changesAt}
                       </span>
                     ))}
