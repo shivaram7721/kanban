@@ -10,7 +10,7 @@ export default function Activity({ showCardDetail, isComment }) {
         <p className={styles.para2}>Activity</p>
       </span>
       <span className={styles.btn3}>
-        <button onClick={showCardDetail} style={{ padding: "0.7rem" }}>
+        <button onClick={showCardDetail} style={{ padding: "0.7rem", cursor:"pointer" }}>
           {isComment ? "Show Details" : "Hide Details"}
         </button>
       </span>

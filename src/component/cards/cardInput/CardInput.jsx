@@ -33,7 +33,7 @@ export function CardInput({ show, index }) {
       activity: [
         {
           changes: "",
-          chagedAt: new Date().toLocaleString(),
+          chagedAt: "",
         },
       ],
     };

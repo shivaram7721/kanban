@@ -17,53 +17,48 @@ import {
   TaskList,
 } from "../../atom/Atom";
 import { CgProfile } from "react-icons/cg";
-import { getLocalData, setLocalData } from "../../Utils";
+import { useRef, useState } from "react";
 
 export default function Description() {
   const [isDialog, setIsDialog] = useRecoilState(dialogBox);
   const [isWatch, setIsWatch] = useRecoilState(watchNotification);
   const [isComment, setComment] = useRecoilState(isCardDetail);
-  const [card, setCard] = useRecoilState(TaskList);
-  const [listData, setListData] = useRecoilState(dashBoardData);
+  const listData = useRecoilValue(dashBoardData);
+  const card = useRecoilValue(TaskList);
   const index = useRecoilValue(listIndex);
   const navigate = useNavigate();
-
-  const getLocal = getLocalData();
+  const prevChangesRef = useRef(listData[index]?.listTitle);
 
   const closeDialogHandle = () => {
     setIsDialog(false);
     navigate("/");
   };
 
-  // const activityData = [
-  //   {
-  //     changes: `user added this card to ${getLocal[index].listTitle}`,
-  //     changesAt: card.createdAt,
-  //   },
-  // ];
+  // console.log("dashboard index ", listData[index].listTitle);
 
-  // console.log(getLocal[index].listTitle)
+  const activityData = {
+    changes: listData[index]?.listTitle,
+    changesAt: card?.createdAt || new Date().toLocaleString(),
+  };
+  const [activity, setActivity] = useState([activityData]);
 
-  // console.log(activityData);
-  // const showCardDetail = () => {
-  //   setComment(!isComment);
-  //   const id = card.cardId;
-  //   const updatedCardData = [...listData];
-  //   const updateCards = [...updatedCardData[index].cards];
-  //   let cardActivity = updateCards.find((ele) => ele.cardId === id);
-  //   cardActivity = {
-  //     ...cardActivity,
-  //     activity: [...cardActivity.activity, ...activityData],
-  //   };
-  //   console.log(cardActivity);
+  console.log(prevChangesRef.current);
 
-    // setListData(cardActivity);
-    // const updatedCard = {
-    //   ...card,
-    //   activity: [...card.activity, ...activityData],
-    // };
-    // setCard(updatedCard);
-  // };
+  console.log(activityData);
+
+  if (activityData.changes !== prevChangesRef.current) {
+    activityData.changesAt = new Date().toLocaleString();
+    prevChangesRef.current = activityData.changes;
+    setActivity([activityData]);
+  }
+
+  console.log(activityData);
+
+  const showCardDetail = () => {
+    setComment(!isComment);
+  };
+
+  console.log(listData[index]);
 
   return (
     <div>
@@ -120,23 +115,23 @@ export default function Description() {
                 </button>
               </div>
               <Content />
-              {/* <Activity showCardDetail={showCardDetail} isComment={isComment} /> */}
+              <Activity showCardDetail={showCardDetail} isComment={isComment} />
               <Comment />
-              {/* {isComment ? (
+              {isComment ? (
                 ""
               ) : (
                 <div className={classes.div2}>
                   <CgProfile className={classes.icons} />
                   <span className={classes.container5}>
-                    {card.activity.map((ele, index) => (
+                    {activity.map((ele, index) => (
                       <span key={index}>
-                        <p>{ele.changes}</p>
+                        <p>user added this card to {ele.changes}</p>
                         {ele.changesAt}
                       </span>
                     ))}
                   </span>
                 </div>
-              )} */}
+              )}
             </div>
           </DialogContent>
         </Dialog>

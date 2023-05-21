@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import styles from "./Nav.module.css";
 import { AiOutlineStar } from "react-icons/ai";
 import { AiOutlineLock } from "react-icons/ai";
@@ -48,7 +49,7 @@ export default function Nav(props) {
         <button className={styles.pBtn}>
           <BsFilter fontSize="1.4rem" color="white" /> <p>Filter</p>
         </button>
-        <div class={styles.vl}></div>
+        <div className={styles.vl}></div>
         <CgProfile fontSize="1.6rem" color="white" />
         <button
           style={{ backgroundColor: "white", marginLeft: "0.8rem" }}

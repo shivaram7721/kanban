@@ -11,6 +11,7 @@ import {
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useState } from "react";
 import { Button } from "@mui/material";
+import { setLocalData } from "../../../Utils";
 
 export default function Title({ clickHandler }) {
   const [title, setTitle] = useRecoilState(TaskList);
@@ -22,6 +23,7 @@ export default function Title({ clickHandler }) {
   const updateTitle = () => {
     const id = title.cardId;
     setIsTitle(!isTitle);
+
     setCardData((prevData) => {
       console.log(prevData);
       const updatedData = [...prevData];
@@ -34,8 +36,11 @@ export default function Title({ clickHandler }) {
         };
         updatedData[index] = { ...updatedData[index], cards: updatedCards };
       }
+      setLocalData(updatedData);
       return updatedData;
     });
+
+    // console.log(Local_dashboarddata);
     setTitle((prevTitle) => {
       console.log(prevTitle);
       const updatedTitle = { ...prevTitle, cardTitle: input };

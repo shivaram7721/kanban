@@ -1,17 +1,21 @@
 .card {
-  padding: 0.5rem 0 0.5rem 0.5rem;
+  /* padding: 0.1rem 0 0.1rem 0.1rem; */
   font-family: Arial, Helvetica, sans-serif;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 10px;
   margin: 0.5rem;
   box-shadow: #e5dcdcc2 5px 5px 5px;
   color: black;
-  color: black;
   text-decoration: none;
   z-index: 2;
-  /* display: flex;
-  justify-content: space-between;
-  gap: 0.5rem; */
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.card.dragging {
+  transform: rotate(10deg);
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .link {
@@ -22,12 +26,20 @@
 .containerCard {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 17rem;
-  height: 2vh;
+  height: 3vh;
   cursor: pointer;
   padding: 5px;
   background-color: white;
   border-radius: 10px;
+}
+
+.containerCard.dragging {
+  box-shadow: #e5dcdcc2 5px 5px 5px;
+  transform: rotate(10deg);
+  height: 4vh;
+  font-weight: 700;
 }
 
 .containerCard:hover {

@@ -49,11 +49,13 @@ export function CardItem({
   return (
     <div className={styles.card}>
       <Draggable draggableId={cardId} key={cardId} index={index}>
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
             {...provided.dragHandleProps}
             {...provided.draggableProps}
             ref={provided.innerRef}
+            // className={styles.card}
+            className={`${styles.card} ${snapshot.isDragging ? styles.dragging : ""}`}
           >
             {setTitle ? (
               <span>
@@ -69,7 +71,7 @@ export function CardItem({
                 </button>
               </span>
             ) : (
-              <span className={styles.containerCard}>
+              <span className={`${styles.containerCard} ${snapshot.isDragging ? styles.dragging : ""}`}>
                 <Link to={`?id=${cardId}`} className={styles.link}>
                   <p className={styles.cardTitle} onClick={clickHandler}>
                     {cardTitle}

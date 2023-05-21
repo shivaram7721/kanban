@@ -10,7 +10,7 @@ export default function TitleInput({ onChange, onClick, setOpen }) {
       <div className={styles.textBox}>
         <TextField
           type="text"
-          placeholder="add card"
+          placeholder="add title"
           onChange={onChange}
           //   value={input}
           sx={{
